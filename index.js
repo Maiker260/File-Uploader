@@ -7,6 +7,7 @@ import { dirname } from "path";
 import path from "path";
 import dotenv from "dotenv";
 import mainRouter from "./routes/main.js";
+import signUpRouter from "./routes/sign-up-route.js";
 
 dotenv.config();
 
@@ -40,6 +41,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use("/", mainRouter);
+// app.use("/auth", authform);
+app.use("/sign-up", signUpRouter);
+// app.use("/login", loginRouter);
 
 app.listen("3000", () => {
     console.log("App running on Port 3000");

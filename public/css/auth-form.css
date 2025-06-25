@@ -1,0 +1,15 @@
+.form-container {
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+}
+
+.login-sign-up-options {
+}
+
+.form-option {
+    border: 1px solid black;
+    padding: 0.5em 1em;
+}
