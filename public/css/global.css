@@ -1,12 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
     --main-color: #5781c8;
     --main-font-color: #fff;
+    --main-bkg-color: #fefeff;
+    --border-color: #dee0e4;
+    --border-btn-color: #476aa5;
+    --btn-hover-color: #547cc1;
 }
 
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 
 html,
@@ -34,8 +45,22 @@ body {
     display: flex;
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .grid {
     display: grid;
+}
+
+.border-round {
+    border-radius: 0.3em;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+.border-line {
+    border: 1px solid var(--border-color);
 }
 
 footer {

@@ -15,9 +15,9 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
+  username  String?  @unique
   email     String?  @unique
   password  String? //only present for local accounts
-  name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
