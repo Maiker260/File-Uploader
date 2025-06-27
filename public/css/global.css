@@ -63,6 +63,10 @@ body {
     border: 1px solid var(--border-color);
 }
 
+.hidden {
+    display: none;
+}
+
 footer {
     padding: 1em;
     background: #eee;

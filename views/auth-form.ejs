@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sign Up</title>
+        <title><%= mode == 'login' ? 'Login' : 'Sign Up' %></title>
         <link rel="stylesheet" href="/css/global.css" />
         <link rel="stylesheet" href="/css/auth-form.css" />
+        <script src="/script/login-signup.js" defer></script>
     </head>
     <body>
         <div class="main-container">
@@ -13,10 +14,10 @@
                 <h1>FileUploader</h1>
             </header>
             <main class="content-container flex">
-                <div class="form-container flex">
+                <form method="post" action="/<%= mode %>" class="form-container flex" id="form">
                     <header class="login-sign-up-options flex">
-                        <button class="form-option">Log In</button>
-                        <button class="form-option">Sign Up</button>
+                        <button class="form-option <%= mode == "login" ? "form-option-active" : "" %>" id="loginOption">Log In</button>
+                        <button class="form-option <%= mode == "login" ? "" : "form-option-active" %>" id="signUpOption">Sign Up</button>
                     </header>
                     <section class="user-data-container flex-column">
                         <article class="social-media-login flex-column">
@@ -55,54 +56,65 @@
                             <span class="separator-text">or</span>
                             <hr class="separator-line" />
                         </article>
-                        <!-- Logic to switch between options -->
-                        <!-- <article class="regular-form login flex-column">
-                            <input
-                                class="input-form border-round border-line"
-                                type="text"
-                                placeholder="Email"
-                                name="emailLogin"
-                            />
-                            <input
-                                class="input-form border-round border-line"
-                                type="text"
-                                placeholder="Password"
-                                name="passwordLogin"
-                            />
-                        </article> -->
-                        <article class="regular-form sign-up flex-column">
-                            <input
-                                class="input-form border-round border-line"
-                                type="text"
-                                placeholder="Username"
-                                name="usernameSignUp"
-                            />
-                            <input
-                                class="input-form border-round border-line"
-                                type="text"
-                                placeholder="Email"
-                                name="emailSignUp"
-                            />
-                            <input
-                                class="input-form border-round border-line"
-                                type="text"
-                                placeholder="Password"
-                                name="passwordSignUp"
-                            />
-                            <input
-                                class="input-form border-round border-line"
-                                type="text"
-                                placeholder="Password Confirmation"
-                                name="passwordConfirmationSignUp"
-                            />
+                        <article class="regular-form login flex-column <%= mode == 'login' ? '' : 'hidden' %>" id="loginForm">
+                            <div class="input-form-container flex-column">
+                                <input
+                                    class="input-form border-round border-line"
+                                    type="text"
+                                    placeholder="Email"
+                                    name="emailLogin"
+                                />
+                            </div>
+                            <div class="input-form-container flex-column">
+                                <input
+                                    class="input-form border-round border-line"
+                                    type="text"
+                                    placeholder="Password"
+                                    name="passwordLogin"
+                                />
+                            </div>
+                        </article>
+                        <article class="regular-form sign-up flex-column <%= mode == 'login' ? 'hidden' : "" %>" id="signUpForm">
+                            <div class="input-form-container flex-column">
+                                <input
+                                    class="input-form border-round border-line"
+                                    type="text"
+                                    placeholder="Username"
+                                    name="usernameSignUp"
+                                />
+                                
+                            </div>
+                            <div class="input-form-container flex-column">
+                                <input
+                                    class="input-form border-round border-line"
+                                    type="text"
+                                    placeholder="Email"
+                                    name="emailSignUp"
+                                />
+                            </div>
+                            <div class="input-form-container flex-column">
+                                <input
+                                    class="input-form border-round border-line"
+                                    type="text"
+                                    placeholder="Password"
+                                    name="passwordSignUp"
+                                />
+                            </div>
+                            <div class="input-form-container flex-column">
+                                <input
+                                    class="input-form border-round border-line"
+                                    type="text"
+                                    placeholder="Password Confirmation"
+                                    name="passwordConfirmationSignUp"
+                                />
+                            </div>
+                            
                         </article>
                     </section>
-                    <button type="submit" class="form-button border-round">
-                        <!-- Logic to switch between buttons -->
-                        <!-- Log in -->
-                        Sign Up
+                    <button type="submit" class="form-button border-round" id="submitBtn">
+                         <%= mode == 'login' ? 'Login' : 'Sign Up' %>
                     </button>
-                </div>
+                </form>
             </main>
             <footer>
                 <a

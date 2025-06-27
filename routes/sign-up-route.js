@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 
 const signUpRouter = express.Router();
 
-signUpRouter.get("/", signUpValidator, (req, res) => {
+signUpRouter.post("/", signUpValidator, (req, res) => {
     const errors = validationResult(req);
 
     // if (!errors.isEmpty()) {
@@ -14,8 +14,11 @@ signUpRouter.get("/", signUpValidator, (req, res) => {
     //     // return res.redirect("/auth?mode=sign-up");
     //     return res.redirect("/sign-up");
     // }
+
     // Need to change to redirect it to "/auth?mode=sign-up"
-    res.render("auth-form");
+    // res.redirect("/auth?mode=sign-up");
+    console.log("SIGN UP");
+    res.redirect("/");
 });
 
 export default signUpRouter;
