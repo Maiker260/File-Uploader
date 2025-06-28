@@ -6,17 +6,17 @@ const signUpRouter = express.Router();
 
 signUpRouter.post("/", signUpValidator, (req, res) => {
     const errors = validationResult(req);
+    const { passwordSignUp, passwordConfirmationSignUp, ...oldSignUpInput } =
+        req.body;
 
-    // if (!errors.isEmpty()) {
-    //     req.session.formErrors = errors.mapped();
-    //     req.session.oldInput = safeInput;
+    if (!errors.isEmpty()) {
+        req.session.formErrors = errors.mapped();
+        req.session.oldSignUpInput = oldSignUpInput;
+        req.session.shouldClear = true;
 
-    //     // return res.redirect("/auth?mode=sign-up");
-    //     return res.redirect("/sign-up");
-    // }
+        return res.redirect("/auth?mode=sign-up");
+    }
 
-    // Need to change to redirect it to "/auth?mode=sign-up"
-    // res.redirect("/auth?mode=sign-up");
     console.log("SIGN UP");
     res.redirect("/");
 });

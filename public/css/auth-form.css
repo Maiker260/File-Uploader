@@ -85,9 +85,22 @@
     gap: 0.5em;
 }
 
+.input-form-container {
+    gap: 0.5em;
+}
+
 .input-form {
     font-size: 1rem;
     padding: 0.8em 1.2em;
+}
+
+.input-error {
+    border-color: red;
+}
+
+.input-form-error {
+    font-size: 1rem;
+    color: red;
 }
 
 .form-button {

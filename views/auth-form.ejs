@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><%= mode == 'login' ? 'Login' : 'Sign Up' %></title>
+        <title>File Uploader</title>
         <link rel="stylesheet" href="/css/global.css" />
         <link rel="stylesheet" href="/css/auth-form.css" />
         <script src="/script/login-signup.js" defer></script>
@@ -57,58 +57,40 @@
                             <hr class="separator-line" />
                         </article>
                         <article class="regular-form login flex-column <%= mode == 'login' ? '' : 'hidden' %>" id="loginForm">
-                            <div class="input-form-container flex-column">
-                                <input
-                                    class="input-form border-round border-line"
-                                    type="text"
-                                    placeholder="Email"
-                                    name="emailLogin"
-                                />
-                            </div>
-                            <div class="input-form-container flex-column">
-                                <input
-                                    class="input-form border-round border-line"
-                                    type="text"
-                                    placeholder="Password"
-                                    name="passwordLogin"
-                                />
-                            </div>
+                            <% loginInputs.forEach(input => { %>
+                                <div class="input-form-container flex-column">
+                                    <input
+                                        class="input-form border-round border-line <%= errors[input.name] ? "input-error" : ""%> "
+                                        type="text"
+                                        placeholder="<%= input.placeholder %>"
+                                        name="<%= input.name %>"
+                                        value="<%= input.name == "userEmailLogin" ? oldLoginInput : "" %>""
+                                    />
+                                    <% if (errors[input.name]) { %>
+                                        <p class="input-form-error">
+                                            <%= errors[input.name].msg %>
+                                        </p>
+                                    <% } %>
+                                </div>
+                            <% }); %>
                         </article>
                         <article class="regular-form sign-up flex-column <%= mode == 'login' ? 'hidden' : "" %>" id="signUpForm">
-                            <div class="input-form-container flex-column">
-                                <input
-                                    class="input-form border-round border-line"
-                                    type="text"
-                                    placeholder="Username"
-                                    name="usernameSignUp"
-                                />
-                                
-                            </div>
-                            <div class="input-form-container flex-column">
-                                <input
-                                    class="input-form border-round border-line"
-                                    type="text"
-                                    placeholder="Email"
-                                    name="emailSignUp"
-                                />
-                            </div>
-                            <div class="input-form-container flex-column">
-                                <input
-                                    class="input-form border-round border-line"
-                                    type="text"
-                                    placeholder="Password"
-                                    name="passwordSignUp"
-                                />
-                            </div>
-                            <div class="input-form-container flex-column">
-                                <input
-                                    class="input-form border-round border-line"
-                                    type="text"
-                                    placeholder="Password Confirmation"
-                                    name="passwordConfirmationSignUp"
-                                />
-                            </div>
-                            
+                            <% signUpInputs.forEach(input => { %>
+                                <div class="input-form-container flex-column">
+                                    <input
+                                        class="input-form border-round border-line <%= errors[input.name] ? "input-error" : "" %> "
+                                        type="text"
+                                        placeholder="<%= input.placeholder %>"
+                                        name="<%= input.name %>"
+                                        value="<%= input.name !== "passwordSignUp" || "passwordConfirmationSignUp"  ? oldSignUpInput[input.name] : "" %>""
+                                    />
+                                    <% if (errors[input.name]) { %>
+                                        <p class="input-form-error">
+                                            <%= errors[input.name].msg %>
+                                        </p>
+                                    <% } %>
+                                </div>
+                            <% }); %>
                         </article>
                     </section>
                     <button type="submit" class="form-button border-round" id="submitBtn">

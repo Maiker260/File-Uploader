@@ -14,12 +14,14 @@ const clearURL = () => {
 };
 
 const toggleClasses = (mode) => {
+    const isLogin = mode === "Login";
+
     loginFormOption.classList.toggle("form-option-active");
     signUpFormOption.classList.toggle("form-option-active");
     signUpForm.classList.toggle("hidden");
     loginForm.classList.toggle("hidden");
     submitBtn.textContent = mode;
-    form.action = mode == "Login" ? "/login" : "/sign-up";
+    form.action = isLogin ? "/login" : "/sign-up";
 };
 
 loginFormOption.addEventListener("click", (e) => {

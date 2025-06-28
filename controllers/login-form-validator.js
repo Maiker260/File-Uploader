@@ -1,7 +1,9 @@
 import { body } from "express-validator";
 
 export const loginValidator = [
-    body("username").notEmpty().withMessage("Enter your Username."),
+    body("userEmailLogin")
+        .notEmpty()
+        .withMessage("Enter your Username or Email."),
 
-    body("password").notEmpty().withMessage("Enter your Password"),
+    body("passwordLogin").notEmpty().withMessage("Enter your Password"),
 ];
