@@ -12,12 +12,21 @@ signUpRouter.post("/", signUpValidator, (req, res) => {
     if (!errors.isEmpty()) {
         req.session.formErrors = errors.mapped();
         req.session.oldSignUpInput = oldSignUpInput;
-        req.session.shouldClear = true;
 
-        return res.redirect("/auth?mode=sign-up");
+        return req.session.save((err) => {
+            if (err) console.error(err);
+            res.redirect("/auth?mode=sign-up");
+        });
     }
 
-    console.log("SIGN UP");
+    // Need to encrypt the password and add the DB query
+    console.log("SIGN-UP COMPLETE");
+
+    // Clear inputs if succeded
+    req.session.formErrors = {};
+    req.session.oldLoginInput = "";
+    req.session.oldSignUpInput = {};
+
     res.redirect("/");
 });
 

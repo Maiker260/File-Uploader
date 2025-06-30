@@ -11,12 +11,21 @@ loginRouter.post("/", loginValidator, (req, res) => {
     if (!errors.isEmpty()) {
         req.session.formErrors = errors.mapped();
         req.session.oldLoginInput = userEmailLogin;
-        req.session.shouldClear = true;
 
-        return res.redirect("/auth?mode=login");
+        return req.session.save((err) => {
+            if (err) console.error(err);
+            res.redirect("/auth?mode=login");
+        });
     }
 
-    console.log("LOGIN");
+    // Need to encrypt the password and add the DB query
+    console.log("LOGIN COMPLETE");
+
+    // Clear inputs if succeded
+    req.session.formErrors = {};
+    req.session.oldLoginInput = "";
+    req.session.oldSignUpInput = {};
+
     res.redirect("/");
 });
 

@@ -33,6 +33,21 @@ body {
     color: var(--main-font-color);
 }
 
+.main-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--main-font-color);
+}
+
+.main-title:focus-visible {
+    outline: none;
+}
+
+.main-title:active {
+    color: inherit;
+}
+
 .main-container {
     display: grid;
     grid-template-rows: auto 1fr auto;

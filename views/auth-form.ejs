@@ -11,10 +11,12 @@
     <body>
         <div class="main-container">
             <header class="main-header">
-                <h1>FileUploader</h1>
+                <nav class="navbar flex">
+                    <a href="/" class="main-title">File Uploader</a>
+                </nav>
             </header>
             <main class="content-container flex">
-                <form method="post" action="/<%= mode %>" class="form-container flex" id="form">
+                <form method="post" action="/<%= mode %>" class="form-container flex" id="form" autocomplete="off">
                     <header class="login-sign-up-options flex">
                         <button class="form-option <%= mode == "login" ? "form-option-active" : "" %>" id="loginOption">Log In</button>
                         <button class="form-option <%= mode == "login" ? "" : "form-option-active" %>" id="signUpOption">Sign Up</button>
@@ -61,10 +63,14 @@
                                 <div class="input-form-container flex-column">
                                     <input
                                         class="input-form border-round border-line <%= errors[input.name] ? "input-error" : ""%> "
-                                        type="text"
+                                        type="<%=
+                                            (input.name !== 'passwordLogin')
+                                                ? 'text'
+                                                : 'password'
+                                            %>"
                                         placeholder="<%= input.placeholder %>"
                                         name="<%= input.name %>"
-                                        value="<%= input.name == "userEmailLogin" ? oldLoginInput : "" %>""
+                                        value="<%= input.name == 'userEmailLogin' ? oldLoginInput : '' %>"
                                     />
                                     <% if (errors[input.name]) { %>
                                         <p class="input-form-error">
@@ -79,10 +85,20 @@
                                 <div class="input-form-container flex-column">
                                     <input
                                         class="input-form border-round border-line <%= errors[input.name] ? "input-error" : "" %> "
-                                        type="text"
+                                        type="<%=
+                                            (input.name !== 'passwordSignUp'
+                                                && input.name !== 'passwordConfirmationSignUp')
+                                                ? 'text'
+                                                : 'password'
+                                            %>"
                                         placeholder="<%= input.placeholder %>"
                                         name="<%= input.name %>"
-                                        value="<%= input.name !== "passwordSignUp" || "passwordConfirmationSignUp"  ? oldSignUpInput[input.name] : "" %>""
+                                        value="<%=
+                                            (input.name !== 'passwordSignUp'
+                                                && input.name !== 'passwordConfirmationSignUp')
+                                                ? oldSignUpInput[input.name]
+                                                : ''
+                                            %>"
                                     />
                                     <% if (errors[input.name]) { %>
                                         <p class="input-form-error">
@@ -119,6 +135,6 @@
                 </a>
             </footer>
         </div>
-        <form action="" method="post"></form>
+        <script src="/script/disable-back-forward.js"></script>
     </body>
 </html>

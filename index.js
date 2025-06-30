@@ -10,7 +10,6 @@ import mainRouter from "./routes/main.js";
 import signUpRouter from "./routes/sign-up-route.js";
 import authFormRouter from "./routes/auth-form-route.js";
 import loginRouter from "./routes/login-route.js";
-import { clearData } from "./controllers/clear-data.js";
 
 dotenv.config();
 
@@ -44,7 +43,6 @@ app.use(
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(clearData);
 app.use("/", mainRouter);
 app.use("/auth", authFormRouter);
 app.use("/sign-up", signUpRouter);
