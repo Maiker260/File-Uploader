@@ -1,31 +1,54 @@
 import express from "express";
 import { signUpValidator } from "../controllers/sign-up-form-validator.js";
 import { validationResult } from "express-validator";
+import { signUpHandler } from "../controllers/sign-up-handler.js";
+import { clearInputs } from "../controllers/clear-inputs.js";
+import { setSessionErrors } from "../controllers/session-errors.js";
 
 const signUpRouter = express.Router();
 
-signUpRouter.post("/", signUpValidator, (req, res) => {
+signUpRouter.post("/", signUpValidator, async (req, res) => {
     const errors = validationResult(req);
-    const { passwordSignUp, passwordConfirmationSignUp, ...oldSignUpInput } =
-        req.body;
+    const {
+        passwordSignUp,
+        passwordConfirmationSignUp,
+        usernameSignUp,
+        emailSignUp,
+        ...otherInput
+    } = req.body;
+
+    const username = usernameSignUp?.toLowerCase() || "";
+    const email = emailSignUp?.toLowerCase() || "";
 
     if (!errors.isEmpty()) {
-        req.session.formErrors = errors.mapped();
-        req.session.oldSignUpInput = oldSignUpInput;
-
-        return req.session.save((err) => {
-            if (err) console.error(err);
-            res.redirect("/auth?mode=sign-up");
+        await setSessionErrors(req, {
+            errors: errors.mapped(),
+            input: {
+                ...otherInput,
+                usernameSignUp: username,
+                emailSignUp: email,
+            },
         });
+        res.redirect("/auth?mode=sign-up");
     }
 
-    // Need to encrypt the password and add the DB query
-    console.log("SIGN-UP COMPLETE");
+    try {
+        await signUpHandler(username, email, passwordSignUp);
+    } catch (err) {
+        console.error("Signup failed:", err);
+        await setSessionErrors(req, {
+            errors: { general: { msg: "Something went wrong. Try again." } },
+            input: {
+                ...otherInput,
+                usernameSignUp: username,
+                emailSignUp: email,
+            },
+        });
+        return res.redirect("/auth?mode=sign-up");
+    }
 
     // Clear inputs if succeded
-    req.session.formErrors = {};
-    req.session.oldLoginInput = "";
-    req.session.oldSignUpInput = {};
+    clearInputs(req);
 
     res.redirect("/");
 });
