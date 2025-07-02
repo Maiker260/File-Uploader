@@ -1,6 +1,9 @@
 import express from "express";
-import { loginInputs, signUpInputs } from "../controllers/form-inputs.js";
-import { noCache } from "../controllers/no-cache.js";
+import {
+    loginInputs,
+    signUpInputs,
+} from "../controllers/shared/form-inputs.js";
+import { noCache } from "../controllers/middleware/no-cache.js";
 
 const authFormRouter = express.Router();
 

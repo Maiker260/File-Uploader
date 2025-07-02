@@ -1,6 +1,6 @@
-export function setSessionErrors(req, { errors, input }) {
+export function setSessionErrors(form, req, { errors, input }) {
     req.session.formErrors = errors;
-    req.session.oldSignUpInput = input;
+    req.session[form === "login" ? "oldLoginInput" : "oldSignUpInput"] = input;
 
     return new Promise((resolve, reject) => {
         req.session.save((err) => {

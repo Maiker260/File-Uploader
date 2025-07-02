@@ -1,36 +1,33 @@
 import express from "express";
-import { loginValidator } from "../controllers/login-form-validator.js";
+import passport from "passport";
+import { loginValidator } from "../controllers/auth/login/login-form-validator.js";
 import { validationResult } from "express-validator";
-import bcrypt from "bcryptjs";
-import { clearInputs } from "../controllers/clear-inputs.js";
+import { clearInputs } from "../controllers/auth/session/clear-inputs.js";
+import { handleFormErrors } from "../controllers/shared/handle-form-errors.js";
 
 const loginRouter = express.Router();
 
-loginRouter.post("/", loginValidator, async (req, res) => {
-    const errors = validationResult(req);
-    const { passwordLogin, userEmailLogin } = req.body;
-    const formatedUsername = userEmailLogin.toLowerCase();
+loginRouter.post(
+    "/",
+    loginValidator,
+    async (req, res, next) => {
+        const errors = validationResult(req);
+        const { userEmailLogin } = req.body;
+        if (!errors.isEmpty()) {
+            return handleFormErrors("login", req, res, errors.mapped(), {
+                oldLoginInput: userEmailLogin,
+            });
+        }
 
-    if (!errors.isEmpty()) {
-        req.session.formErrors = errors.mapped();
-        req.session.oldLoginInput = userEmailLogin;
+        clearInputs(req);
 
-        return req.session.save((err) => {
-            if (err) console.error(err);
-            res.redirect("/auth?mode=login");
-        });
-    }
-
-    const securePassword = bcrypt.compare();
-    console.log(formatedUsername);
-
-    // Need to encrypt the password and add the DB query
-    console.log("LOGIN COMPLETE");
-
-    // Clear inputs if succeded
-    clearInputs(req);
-
-    res.redirect("/");
-});
-
+        next();
+    },
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/auth?mode=login",
+        failureMessage: true,
+    })
+);
+// NEED TO FIX THE LOGIN AUTH
 export default loginRouter;

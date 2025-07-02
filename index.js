@@ -1,5 +1,6 @@
 import express from "express";
 import expressSession from "express-session";
+import { Strategy as LocalStrategy } from "passport-local";
 import { PrismaClient } from "@prisma/client";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { fileURLToPath } from "url";
@@ -10,6 +11,8 @@ import mainRouter from "./routes/main.js";
 import signUpRouter from "./routes/sign-up-route.js";
 import authFormRouter from "./routes/auth-form-route.js";
 import loginRouter from "./routes/login-route.js";
+import { loginAuthenticator } from "./controllers/auth/login/login-authenticator.js";
+import passport from "passport";
 
 dotenv.config();
 
@@ -39,6 +42,8 @@ app.use(
         }),
     })
 );
+
+passport.use(new LocalStrategy(loginAuthenticator));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

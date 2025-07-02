@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { findUser } from "../../db/db-query.js";
 
 export const signUpValidator = [
     body("usernameSignUp")
@@ -22,6 +23,13 @@ export const signUpValidator = [
             }
 
             return true;
+        })
+        .custom(async (username) => {
+            const existingUser = await findUser({ username });
+
+            if (existingUser) {
+                throw new Error("Username already exist.");
+            }
         }),
 
     body("emailSignUp")
@@ -29,7 +37,14 @@ export const signUpValidator = [
         .notEmpty()
         .withMessage("Email is required.")
         .isEmail()
-        .withMessage("A valid email is required."),
+        .withMessage("A valid email is required.")
+        .custom(async (email) => {
+            const existingEmail = await findUser({ email });
+
+            if (existingEmail) {
+                throw new Error("Email already exist.");
+            }
+        }),
 
     body("passwordSignUp")
         .notEmpty()
