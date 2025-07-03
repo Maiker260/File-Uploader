@@ -11,7 +11,6 @@ authFormRouter.get("/", noCache, (req, res) => {
     if (req.user) {
         return res.redirect("/");
     }
-
     const allowedModes = ["login", "sign-up"];
     const mode = allowedModes.includes(req.query.mode)
         ? req.query.mode
@@ -22,16 +21,19 @@ authFormRouter.get("/", noCache, (req, res) => {
         formErrors = {},
         oldLoginInput = "",
         oldSignUpInput = {},
+        messages = "",
     } = req.session;
 
     // Clear old Data
     delete req.session.formErrors;
     delete req.session.oldLoginInput;
     delete req.session.oldSignUpInput;
+    delete req.session.messages;
 
     res.render("auth-form", {
         mode,
         errors: formErrors,
+        failureMessage: messages[0],
         loginInputs,
         signUpInputs,
         oldLoginInput,

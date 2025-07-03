@@ -7,11 +7,12 @@ export async function loginAuthenticator(
     done
 ) {
     // Check for email format
+    emailOrUsername = emailOrUsername.trim().toLowerCase();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailOrUsername);
 
     const user = isEmail
         ? await findUser({ email: emailOrUsername })
-        : await findUser({ username: emailOrUsername.toLowerCase() });
+        : await findUser({ username: emailOrUsername });
 
     if (!user || !(await bcrypt.compare(plainTextPassword, user.password))) {
         return done(null, false, {

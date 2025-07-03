@@ -79,7 +79,12 @@
                                     />
                                     <% if (errors[input.name]) { %>
                                         <p class="input-form-error">
-                                            <%= errors[input.name].msg %>
+                                            <%= errors[input.name].msg%>
+                                        </p>
+                                    <% } %>
+                                    <% if (failureMessage && input.name == "userEmailLogin")  {%>
+                                        <p class="input-form-error" >
+                                            <%= failureMessage  %>
                                         </p>
                                     <% } %>
                                 </div>
