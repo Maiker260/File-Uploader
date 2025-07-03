@@ -8,23 +8,35 @@ import { noCache } from "../controllers/middleware/no-cache.js";
 const authFormRouter = express.Router();
 
 authFormRouter.get("/", noCache, (req, res) => {
-    const mode = req.query.mode || "login";
-    const formErrors = req.session.formErrors || {};
-    const oldLoginInput = req.session.oldLoginInput || "";
-    const oldSignUpInput = req.session.oldSignUpInput || "";
+    if (req.user) {
+        return res.redirect("/");
+    }
+
+    const allowedModes = ["login", "sign-up"];
+    const mode = allowedModes.includes(req.query.mode)
+        ? req.query.mode
+        : "login";
+    const isUserCreationSuccessful = req.query.successful === "true";
+
+    const {
+        formErrors = {},
+        oldLoginInput = "",
+        oldSignUpInput = {},
+    } = req.session;
 
     // Clear old Data
-    req.session.formErrors = {};
-    req.session.oldLoginInput = "";
-    req.session.oldSignUpInput = {};
+    delete req.session.formErrors;
+    delete req.session.oldLoginInput;
+    delete req.session.oldSignUpInput;
 
     res.render("auth-form", {
-        mode: mode,
+        mode,
         errors: formErrors,
-        loginInputs: loginInputs,
-        signUpInputs: signUpInputs,
-        oldLoginInput: oldLoginInput,
-        oldSignUpInput: oldSignUpInput,
+        loginInputs,
+        signUpInputs,
+        oldLoginInput,
+        oldSignUpInput,
+        isUserCreationSuccessful,
     });
 });
 

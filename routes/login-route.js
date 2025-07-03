@@ -13,14 +13,18 @@ loginRouter.post(
     async (req, res, next) => {
         const errors = validationResult(req);
         const { userEmailLogin } = req.body;
+
         if (!errors.isEmpty()) {
-            return handleFormErrors("login", req, res, errors.mapped(), {
-                oldLoginInput: userEmailLogin,
-            });
+            return handleFormErrors(
+                "login",
+                req,
+                res,
+                errors.mapped(),
+                userEmailLogin
+            );
         }
 
         clearInputs(req);
-
         next();
     },
     passport.authenticate("local", {
@@ -29,5 +33,5 @@ loginRouter.post(
         failureMessage: true,
     })
 );
-// NEED TO FIX THE LOGIN AUTH
+
 export default loginRouter;

@@ -1,15 +1,19 @@
 import bcrypt from "bcryptjs";
 import { findUser } from "../../db/db-query.js";
 
-export async function loginAuthenticator(userLogin, passwordLogin, done) {
+export async function loginAuthenticator(
+    emailOrUsername,
+    plainTextPassword,
+    done
+) {
     // Check for email format
-    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userLogin);
-    console.log("login");
-    const user = isEmail
-        ? findUser({ email: userLogin })
-        : findUser({ username: userLogin.toLowerCase() });
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailOrUsername);
 
-    if (!user || !(await bcrypt.compare(passwordLogin, user.password))) {
+    const user = isEmail
+        ? await findUser({ email: emailOrUsername })
+        : await findUser({ username: emailOrUsername.toLowerCase() });
+
+    if (!user || !(await bcrypt.compare(plainTextPassword, user.password))) {
         return done(null, false, {
             message: "Incorrect Username or Password",
         });

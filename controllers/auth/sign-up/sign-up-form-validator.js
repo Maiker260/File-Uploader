@@ -12,6 +12,8 @@ export const signUpValidator = [
         )
         .isLength({ min: 5 })
         .withMessage("Username must be at least 4 characters long.")
+        .isLength({ max: 10 })
+        .withMessage("Username must not have more than 10 characters.")
         .custom((value) => {
             const hasLetter = /[a-zA-Z]/.test(value);
             const hasNumber = /[0-9]/.test(value);

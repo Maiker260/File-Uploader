@@ -7,12 +7,17 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
 import dotenv from "dotenv";
-import mainRouter from "./routes/main.js";
-import signUpRouter from "./routes/sign-up-route.js";
-import authFormRouter from "./routes/auth-form-route.js";
-import loginRouter from "./routes/login-route.js";
-import { loginAuthenticator } from "./controllers/auth/login/login-authenticator.js";
 import passport from "passport";
+import mainRouter from "./routes/main.js";
+import authFormRouter from "./routes/auth-form-route.js";
+import signUpRouter from "./routes/sign-up-route.js";
+import loginRouter from "./routes/login-route.js";
+import logoutRouter from "./routes/log-out-route.js";
+import { loginAuthenticator } from "./controllers/auth/login/login-authenticator.js";
+import {
+    serialize,
+    deserialize,
+} from "./controllers/auth/login/passport-session.js";
 
 dotenv.config();
 
@@ -43,7 +48,18 @@ app.use(
     })
 );
 
-passport.use(new LocalStrategy(loginAuthenticator));
+app.use(passport.session());
+passport.serializeUser(serialize);
+passport.deserializeUser(deserialize);
+passport.use(
+    new LocalStrategy(
+        {
+            usernameField: "userEmailLogin",
+            passwordField: "passwordLogin",
+        },
+        loginAuthenticator
+    )
+);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -52,6 +68,7 @@ app.use("/", mainRouter);
 app.use("/auth", authFormRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
 
 app.listen("3000", () => {
     console.log("App running on Port 3000");

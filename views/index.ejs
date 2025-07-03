@@ -7,6 +7,12 @@
     </head>
     <body>
         <h1>THIS IS MY FILE UPLOADER</h1>
-        <h2>You are <%= user %></h2>
+        <% if (user && user.username) {%>
+            <h2>You are logged in as: <%= user.username  || "" %></h2>
+            <a href="/logout">Logout</a>
+        <% } else { %>
+            <a href="/auth?mode=login">Login</a>
+            <a href="/auth?mode=sign-up">Sign Up</a>
+        <% } %>
     </body>
 </html>

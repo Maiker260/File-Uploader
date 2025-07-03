@@ -2,6 +2,27 @@
     background-color: var(--main-bkg-color);
 }
 
+.banner {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s ease, top 0.5s ease;
+    z-index: 1000;
+}
+
+.fade-out {
+    opacity: 0;
+    top: 0;
+    pointer-events: none;
+}
+
 .form-container {
     border: 1px solid #ccc;
     border-radius: 8px;

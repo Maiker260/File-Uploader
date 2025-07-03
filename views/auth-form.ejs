@@ -14,6 +14,11 @@
                 <nav class="navbar flex">
                     <a href="/" class="main-title">File Uploader</a>
                 </nav>
+                <% if (isUserCreationSuccessful && mode == "login") { %>
+                    <div id="successBanner" class="banner">
+                        User created successfully. Please login.
+                    </div>
+                <% } %>
             </header>
             <main class="content-container flex">
                 <form method="post" action="/<%= mode %>" class="form-container flex" id="form" autocomplete="off">

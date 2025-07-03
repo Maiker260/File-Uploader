@@ -42,7 +42,7 @@ signUpRouter.post("/", signUpValidator, async (req, res) => {
     }
 
     clearInputs(req);
-    res.redirect("/");
+    res.redirect("/auth?mode=login&successful=true");
 });
 
 export default signUpRouter;
