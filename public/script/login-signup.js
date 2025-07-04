@@ -1,15 +1,25 @@
-const get = (id) => document.getElementById(id);
+const getById = (id) => document.getElementById(id);
 
-const loginFormOption = get("loginOption");
-const signUpFormOption = get("signUpOption");
-const loginForm = get("loginForm");
-const signUpForm = get("signUpForm");
-const submitBtn = get("submitBtn");
-const form = get("form");
-const banner = document.getElementById("successBanner");
+const {
+    loginOption,
+    signUpOption,
+    loginForm,
+    signUpForm,
+    submitBtn,
+    form,
+    successBanner,
+} = {
+    loginOption: getById("loginOption"),
+    signUpOption: getById("signUpOption"),
+    loginForm: getById("loginForm"),
+    signUpForm: getById("signUpForm"),
+    submitBtn: getById("submitBtn"),
+    form: getById("form"),
+    successBanner: getById("successBanner"),
+};
 
 // Hide Banner if the User creation was sucessfully.
-if (banner) {
+if (successBanner) {
     setTimeout(() => {
         banner.classList.add("fade-out");
     }, 3000);
@@ -26,24 +36,24 @@ const clearURL = () => {
 const toggleClasses = (mode) => {
     const isLogin = mode === "Login";
 
-    loginFormOption.classList.toggle("form-option-active");
-    signUpFormOption.classList.toggle("form-option-active");
+    loginOption.classList.toggle("form-option-active");
+    signUpOption.classList.toggle("form-option-active");
     signUpForm.classList.toggle("hidden");
     loginForm.classList.toggle("hidden");
     submitBtn.textContent = mode;
     form.action = isLogin ? "/login" : "/sign-up";
 };
 
-loginFormOption.addEventListener("click", (e) => {
+loginOption.addEventListener("click", (e) => {
     e.preventDefault();
-    if (loginFormOption.classList.contains("form-option-active")) return;
+    if (loginOption.classList.contains("form-option-active")) return;
     toggleClasses("Login");
     clearURL();
 });
 
-signUpFormOption.addEventListener("click", (e) => {
+signUpOption.addEventListener("click", (e) => {
     e.preventDefault();
-    if (signUpFormOption.classList.contains("form-option-active")) return;
+    if (signUpOption.classList.contains("form-option-active")) return;
     toggleClasses("Sign Up");
     clearURL();
 });

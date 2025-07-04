@@ -1,0 +1,44 @@
+.content-container {
+    grid-template-columns: auto 1fr;
+}
+
+.content-title-container {
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding: 0.5em;
+}
+
+.content-title-icon {
+    width: 30px;
+    height: 30px;
+    fill: var(--black);
+}
+
+.content-title {
+    font-size: 1rem;
+}
+
+.folders-section {
+    border-right: 1px solid black;
+}
+
+.folders-section-content {
+    padding-left: 1em;
+}
+
+.content-data {
+    padding: 1em;
+}
+
+.content-file {
+    border-bottom: 1px solid black;
+    padding: 0em 0.4em 0.4em 0;
+}
+
+.folders-section-content-data {
+    gap: 0.5em;
+}
+
+.files-section-content-data {
+    gap: 0.5em;
+}
