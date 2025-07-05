@@ -1,5 +1,17 @@
 const getbyId = (id) => document.getElementById(id);
 
+const getDialog = (dialogName) => {
+    const get = (suffix) => getbyId(`${dialogName}${suffix}`);
+
+    return {
+        [`${dialogName}Dialog`]: get("Dialog"),
+        [`${dialogName}Btn`]: get("Btn"),
+        [`${dialogName}DialogCloseBtn`]: get("DialogCloseBtn"),
+        [`${dialogName}DialogCancelBtn`]: get("DialogCancelBtn"),
+        [`${dialogName}DialogSubmitBtn`]: get("DialogSubmitBtn"),
+    };
+};
+
 const { arrow, userData, userDataDialog } = {
     arrow: getbyId("arrow"),
     userData: getbyId("userData"),
@@ -7,18 +19,20 @@ const { arrow, userData, userDataDialog } = {
 };
 
 const {
-    UploadBtn,
-    UploadFileDialog,
-    UploadFileDialogCloseBtn,
-    UploadFileDialogCancelBtn,
-    UploadFileDialogSubmitBtn,
-} = {
-    UploadBtn: getbyId("UploadBtn"),
-    UploadFileDialog: getbyId("UploadFileDialog"),
-    UploadFileDialogCloseBtn: getbyId("UploadFileDialogCloseBtn"),
-    UploadFileDialogCancelBtn: getbyId("UploadFileDialogCancelBtn"),
-    UploadFileDialogSubmitBtn: getbyId("UploadFileDialogSubmitBtn"),
-};
+    uploadFileDialog,
+    uploadFileBtn,
+    uploadFileDialogCloseBtn,
+    uploadFileDialogCancelBtn,
+    uploadFileDialogSubmitBtn,
+} = getDialog("uploadFile");
+
+const {
+    createNewFolderDialog,
+    createNewFolderBtn,
+    createNewFolderDialogCloseBtn,
+    createNewFolderDialogCancelBtn,
+    createNewFolderDialogSubmitBtn,
+} = getDialog("createNewFolder");
 
 function setupToggleSidebar(triggerBtn, sidebar, extraToggleClass = null) {
     if (!triggerBtn || !sidebar) return;
@@ -82,7 +96,12 @@ function setupModalDialog(openBtn, dialog, closeBtn) {
 
 toggleDialog(userData, userDataDialog);
 setupToggleSidebar(arrow, arrow, "rotated");
-setupModalDialog(UploadBtn, UploadFileDialog, UploadFileDialogCloseBtn);
+setupModalDialog(uploadFileBtn, uploadFileDialog, uploadFileDialogCloseBtn);
+setupModalDialog(
+    createNewFolderBtn,
+    createNewFolderDialog,
+    createNewFolderDialogCloseBtn
+);
 
 // NEED TO REPLACE WHEN THE SIDEBAR EXISTS
 // setupToggleSidebar(userInfo, sidebar, "rotated");

@@ -16,7 +16,7 @@
                     <% if (user && user.username) {%>
                         <div class="user-info-container flex">
                             <div class="user-tools flex">
-                                <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="UploadBtn">
+                                <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="uploadFileBtn">
                                     <svg
                                         class="toolbar-icon"
                                         xmlns="http://www.w3.org/2000/svg" 
@@ -29,7 +29,7 @@
                                     </svg>
                                     <span class="toolbar-btn-name">Upload</span>
                                 </button>
-                                <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex">
+                                <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="createNewFolderBtn">
                                     <svg 
                                         class="toolbar-icon"
                                         xmlns="http://www.w3.org/2000/svg" 
@@ -73,21 +73,53 @@
                 </nav>
             </header>
             <main class="content-container grid">
-                <dialog class="dialog-tool" id="UploadFileDialog">
-                    <div class="dialog-tool-content-container grid">
-                        <header class="dialog-tool-header flex">
-                            <h2 class="dialog-tool-dialog">Select Files to Upload</h2>
-                            <button type="button" id="UploadFileDialogCloseBtn" class="dialog-tool-close-btn">✖</button>
-                        </header>
-                        <section class="dialog-tool-content">
-                            <h2 class="">SOME DATA</h2>
-                        </section>
-                        <section class="dialog-tool-footer flex">
-                            <button class="dialog-tool-footer-btn" id="UploadFileDialogCancelBtn">CANCEL</button>
-                            <button class="dialog-tool-footer-btn" id="UploadFileDialogSubmitBtn">SUBMIT</button>
-                        </section>
-                    </div>
-                </dialog>
+                <% dialogs.forEach(dialog => { %>
+                    <dialog class="dialog-tool <%= dialog.id == "uploadFile" ? "dialog-tool-upload-file" : "" %>" id="<%= dialog.id %>Dialog">
+                        <div class="dialog-tool-content-container grid">
+                            <header class="dialog-tool-header flex">
+                                <h2 class="dialog-tool-dialog"><%= dialog.title %></h2>
+                                <button type="button" id="<%= dialog.id %>DialogCloseBtn" class="dialog-tool-close-btn">✖</button>
+                            </header>
+                            <form method="" action=""  class="dialog-tool-content flex <%= dialog.id == "uploadFile" ? "" : "dialog-tool-content-no-border" %>">
+                                <div class="dialog-tool-content-inputs-container flex-column">
+                                    <% if (dialog.inputType == "text") { %>
+                                        <label for="<%= dialog.id %>DialogInput" class="dialog-input-label"><%= dialog.inputLabel %></label>
+                                    <% } %>
+                                    <input 
+                                        id="<%= dialog.id %>DialogInput"
+                                        type="<%= dialog.inputType %>" 
+                                        placeholder="<%= dialog.placeholder %>"
+                                        <% if (dialog.inputType == "file") { %>
+                                            class="input-file" 
+                                            multiple 
+                                            tabindex="-1"
+                                        <% } else { %>
+                                            class="dialog-tool-content-input"
+                                        <% } %>
+                                    >
+                                </div>
+                                <% if (dialog.showAddIcon) { %>
+                                    <div class="add-file-icon-container">
+                                        <svg
+                                            class="add-file-icon" 
+                                            xmlns="http://www.w3.org/2000/svg" 
+                                            height="24px" 
+                                            viewBox="0 -960 960 960" 
+                                            width="24px"
+                                            fill="#e3e3e3"
+                                        >
+                                            <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z"/>
+                                        </svg>
+                                    </div>
+                                <% } %>
+                            </form>
+                            <section class="dialog-tool-footer flex">
+                                <button class="dialog-tool-footer-btn" id="<%= dialog.id %>DialogCancelBtn"><%= dialog.cancelBtn %></button>
+                                <button class="dialog-tool-footer-btn dialog-tool-footer-submit" id="<%= dialog.id %>DialogSubmitBtn"><%= dialog.submitBtn %></button>
+                            </section>
+                        </div>
+                    </dialog>
+                <% }); %>
                 <section class="folders-section content">
                     <div class="content-title-container folders-section-content flex">
                         <svg 

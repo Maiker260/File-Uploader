@@ -79,24 +79,32 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 20px 2em;
     background: white;
     border: none;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    width: 700px;
+    width: 400px;
     max-width: 90%;
-    height: 600px;
+    height: 250px;
     max-height: 90%;
+}
+
+.dialog-tool-upload-file {
+    width: 700px;
+    height: 600px;
 }
 
 .dialog-tool-content-container {
     grid-template-rows: auto 1fr auto;
+    width: 100%;
+    height: 100%;
 }
 
 .dialog-tool-header {
     justify-content: space-between;
     align-items: center;
+    padding: 0.5em 0;
 }
 
 .dialog-tool::backdrop {
@@ -119,12 +127,81 @@
 }
 
 .dialog-tool-content {
+    border-top: 1px solid var(--line-separator-color);
+    border-bottom: 1px solid var(--line-separator-color);
+    position: relative;
+}
+
+.dialog-tool-content-no-border {
+    border-bottom: none;
+}
+
+.dialog-tool-content-inputs-container {
+    justify-content: center;
+    gap: 0.5em;
+    width: 100%;
+}
+
+.dialog-tool-content-input {
+    padding: 1em;
+    font-size: 1rem;
+}
+
+.input-file {
+    opacity: 0;
     width: 100%;
     height: 100%;
+    cursor: pointer;
+}
+
+.add-file-icon-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px dashed var(--line-separator-color);
+    width: 150px;
+    height: 150px;
+    z-index: -1;
+}
+
+.add-file-icon {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    fill: var(--line-separator-color);
 }
 
 .dialog-tool-footer {
     justify-content: end;
     align-items: center;
-    border-top: 1px solid var(--line-separator-color);
+    padding: 0.5em 0;
+    gap: 1em;
+}
+
+.dialog-tool-footer-btn {
+    cursor: pointer;
+    padding: 1em;
+    border-radius: 0.3em;
+    border: 1px solid var(--border-color);
+    color: #276ca0;
+    font-weight: 500;
+}
+
+.dialog-tool-footer-btn:hover {
+    background-color: #e0e0e0;
+    color: #276ca0;
+}
+
+.dialog-tool-footer-submit {
+    background-color: var(--main-color);
+    color: var(--main-font-color);
+}
+
+.dialog-tool-footer-submit:hover {
+    background-color: #276ca0;
+    color: #e0e0e0;
 }
