@@ -13,6 +13,7 @@ import authFormRouter from "./routes/auth-form-route.js";
 import signUpRouter from "./routes/sign-up-route.js";
 import loginRouter from "./routes/login-route.js";
 import logoutRouter from "./routes/log-out-route.js";
+import uploadRouter from "./routes/upload-route.js";
 import { loginAuthenticator } from "./controllers/auth/login/login-authenticator.js";
 import {
     serialize,
@@ -69,6 +70,7 @@ app.use("/auth", authFormRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
+app.use("/upload", uploadRouter);
 
 app.listen("3000", () => {
     console.log("App running on Port 3000");

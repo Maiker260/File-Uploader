@@ -80,7 +80,21 @@
                                 <h2 class="dialog-tool-dialog"><%= dialog.title %></h2>
                                 <button type="button" id="<%= dialog.id %>DialogCloseBtn" class="dialog-tool-close-btn">✖</button>
                             </header>
-                            <form method="" action=""  class="dialog-tool-content flex <%= dialog.id == "uploadFile" ? "" : "dialog-tool-content-no-border" %>">
+                            <% if (dialog.isForm) { %>
+                                <form 
+                                    method="<%= dialog.formMethod %>" 
+                                    action="<%= dialog.formAction %>"
+                                    id="<%= dialog.id %>Form"
+                                    <% if (dialog.id == "uploadFile") { %>
+                                        enctype="multipart/form-data"
+                                        class="dialog-tool-content flex"
+                                    <% } else { %>
+                                        class="dialog-tool-content flex dialog-tool-content-no-border"
+                                    <% } %>
+                                >
+                            <% } else { %>
+                                <div class="dialog-tool-content flex dialog-tool-content-no-border">
+                            <% } %>
                                 <div class="dialog-tool-content-inputs-container flex-column">
                                     <% if (dialog.inputType == "text") { %>
                                         <label for="<%= dialog.id %>DialogInput" class="dialog-input-label"><%= dialog.inputLabel %></label>
@@ -88,17 +102,18 @@
                                     <input 
                                         id="<%= dialog.id %>DialogInput"
                                         type="<%= dialog.inputType %>" 
-                                        placeholder="<%= dialog.placeholder %>"
                                         <% if (dialog.inputType == "file") { %>
                                             class="input-file" 
-                                            multiple 
+                                            multiple
                                             tabindex="-1"
+                                            name="uploaded_files"
                                         <% } else { %>
                                             class="dialog-tool-content-input"
+                                            placeholder="<%= dialog.placeholder %>"
                                         <% } %>
                                     >
                                 </div>
-                                <% if (dialog.showAddIcon) { %>
+                                <% if (dialog.id == "uploadFile") { %>
                                     <div class="add-file-icon-container">
                                         <svg
                                             class="add-file-icon" 
@@ -112,10 +127,29 @@
                                         </svg>
                                     </div>
                                 <% } %>
-                            </form>
+                            <% if (dialog.isForm) { %>
+                                </form>
+                            <% } else { %>
+                                </div>
+                            <% } %>
                             <section class="dialog-tool-footer flex">
-                                <button class="dialog-tool-footer-btn" id="<%= dialog.id %>DialogCancelBtn"><%= dialog.cancelBtn %></button>
-                                <button class="dialog-tool-footer-btn dialog-tool-footer-submit" id="<%= dialog.id %>DialogSubmitBtn"><%= dialog.submitBtn %></button>
+                                <button 
+                                    class="dialog-tool-footer-btn" 
+                                    id="<%= dialog.id %>DialogCancelBtn"
+                                >
+                                    <%= dialog.cancelBtn %>
+                                </button>
+                                <button 
+                                    class="dialog-tool-footer-btn dialog-tool-footer-submit" 
+                                    id="<%= dialog.id %>DialogSubmitBtn"
+                                    <% if (dialog.isForm) { %>
+                                        type="submit"
+                                        form="<%= dialog.id %>Form"
+                                        value="<%= dialog.submitBtn %>"
+                                    <% } %>
+                                >
+                                    <%= dialog.submitBtn %>
+                                </button>
                             </section>
                         </div>
                     </dialog>
