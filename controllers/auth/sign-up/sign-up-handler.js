@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
-import { createRegularUser } from "../../db/db-query.js";
+import { createRegularUserOnDB } from "../../db/db-query.js";
 
 export async function signUpHandler(username, email, password) {
     const securePassword = await bcrypt.hash(password, 10);
 
-    return await createRegularUser({
+    return await createRegularUserOnDB({
         username,
         email,
         password: securePassword,

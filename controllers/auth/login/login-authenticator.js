@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { findUser } from "../../db/db-query.js";
+import { findUserOnDB } from "../../db/db-query.js";
 
 export async function loginAuthenticator(
     emailOrUsername,
@@ -11,8 +11,8 @@ export async function loginAuthenticator(
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailOrUsername);
 
     const user = isEmail
-        ? await findUser({ email: emailOrUsername })
-        : await findUser({ username: emailOrUsername });
+        ? await findUserOnDB({ email: emailOrUsername })
+        : await findUserOnDB({ username: emailOrUsername });
 
     if (!user || !(await bcrypt.compare(plainTextPassword, user.password))) {
         return done(null, false, {

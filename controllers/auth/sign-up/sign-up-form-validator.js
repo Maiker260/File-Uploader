@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import { findUser } from "../../db/db-query.js";
+import { findUserOnDB } from "../../db/db-query.js";
 
 export const signUpValidator = [
     body("usernameSignUp")
@@ -27,7 +27,7 @@ export const signUpValidator = [
             return true;
         })
         .custom(async (username) => {
-            const existingUser = await findUser({ username });
+            const existingUser = await findUserOnDB({ username });
 
             if (existingUser) {
                 throw new Error("Username already exist.");
@@ -41,7 +41,7 @@ export const signUpValidator = [
         .isEmail()
         .withMessage("A valid email is required.")
         .custom(async (email) => {
-            const existingEmail = await findUser({ email });
+            const existingEmail = await findUserOnDB({ email });
 
             if (existingEmail) {
                 throw new Error("Email already exist.");

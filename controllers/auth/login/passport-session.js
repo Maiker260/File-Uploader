@@ -1,4 +1,4 @@
-import { findUser } from "../../db/db-query.js";
+import { findUserOnDB } from "../../db/db-query.js";
 
 export function serialize(user, done) {
     done(null, user.id);
@@ -6,7 +6,7 @@ export function serialize(user, done) {
 
 export async function deserialize(id, done) {
     try {
-        const user = await findUser({ id });
+        const user = await findUserOnDB({ id });
 
         done(null, user);
     } catch (err) {

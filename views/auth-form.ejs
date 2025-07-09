@@ -6,7 +6,6 @@
         <title>File Uploader</title>
         <link rel="stylesheet" href="/css/global.css" />
         <link rel="stylesheet" href="/css/auth-form.css" />
-        <script src="/script/login-signup.js" defer></script>
     </head>
     <body>
         <div class="main-container">
@@ -21,14 +20,15 @@
                 <% } %>
             </header>
             <main class="content-container flex">
-                <form method="post" action="/<%= mode %>" class="form-container flex" id="form" autocomplete="off">
+                <form method="post" action="/<%= mode %>" class="form-container flex" id="Authform" autocomplete="off">
                     <header class="login-sign-up-options flex">
-                        <button class="form-option <%= mode == "login" ? "form-option-active" : "" %>" id="loginOption">Log In</button>
-                        <button class="form-option <%= mode == "login" ? "" : "form-option-active" %>" id="signUpOption">Sign Up</button>
+                        <button type="button" class="form-option <%= mode == "login" ? "form-option-active" : "" %>" id="loginOption">Log In</button>
+                        <button type="button" class="form-option <%= mode == "login" ? "" : "form-option-active" %>" id="signUpOption">Sign Up</button>
                     </header>
                     <section class="user-data-container flex-column">
                         <article class="social-media-login flex-column">
                             <button
+                                type="button"
                                 class="social-media-btn border-round border-line flex"
                             >
                                 <svg
@@ -119,7 +119,7 @@
                             <% }); %>
                         </article>
                     </section>
-                    <button type="submit" class="form-button border-round" id="submitBtn">
+                    <button type="submit" class="form-button border-round" id="submitBtn" form="Authform">
                          <%= mode == 'login' ? 'Login' : 'Sign Up' %>
                     </button>
                 </form>
@@ -145,6 +145,7 @@
                 </a>
             </footer>
         </div>
+        <script src="/script/login-signup.js"></script>
         <script src="/script/disable-back-forward.js"></script>
     </body>
 </html>
