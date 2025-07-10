@@ -9,14 +9,12 @@ mainRouter.get("/", async (req, res) => {
 
     // TEMPORARY FIXED TO USE THE MAIN PAGE WITH THE CURRENT TEMPLATE, NEED TO CHANGE LATER TO A DIFFERENT MAIN PAGE
     let folders = [];
-    let dialogList = [];
 
     if (user) {
         ({ folders } = await checkUserData(user.id));
-        dialogList = dialogs;
     }
 
-    res.render("index", { user, dialogs: dialogList, folders });
+    res.render("index", { user, dialogs, folders });
 });
 
 export default mainRouter;
