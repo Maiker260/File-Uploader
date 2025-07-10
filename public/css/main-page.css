@@ -34,18 +34,28 @@
 }
 
 .content-folder-container {
-    gap: 0.3em;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em 0;
 }
 
 .content-file-container,
-.content-folder-container {
+.content-folder-container-icon-name {
     align-items: center;
     cursor: pointer;
 }
 
-.content-folder-container:hover,
+.content-folder-container-icon-name:hover,
 .content-file-container:hover {
     text-decoration: underline;
+}
+
+.content-folder-container-icon-name {
+    gap: 0.3em;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .content-folder-icon {
@@ -54,18 +64,30 @@
     fill: var(--black);
 }
 
+.content-folder-more-icon {
+    cursor: pointer;
+}
+
 .content-file {
     border-bottom: 1px solid var(--line-separator-color);
     padding: 0em 0.4em 0.4em 0;
 }
 
-.content-name {
+.content-folder {
     font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
 }
 
 .folders-section-content-data {
-    gap: 0.7em;
+    gap: 0.2em;
     padding-left: 1.3em;
+}
+
+.more-options-folder-btn:hover {
+    fill: #ff4d4d;
 }
 
 .files-section-content-data {

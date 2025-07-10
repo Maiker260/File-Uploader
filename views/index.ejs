@@ -46,11 +46,6 @@
                                 <!-- NEED TO REMOVE THE FLEX CLASS, JUST 1 ITEM -->
                             <div class="user-data flex">
                                 <p class="user-name" id="userData"><%= user.username  || "" %></p>
-                                <dialog class="user-data-dialog" id="userDataDialog">
-                                    <ul class="user-data-dialog-list flex-column">
-                                        <li class="user-data-dialog-list-logout"><a href="/logout">Logout</a></li>
-                                    </ul>
-                                </dialog>
                                 <!-- NEED TO REMOVE THE DATASET AND PUT IT INTO THE SIDEBAR -->
                                 <svg 
                                     class="arrow no-active"
@@ -73,87 +68,6 @@
                 </nav>
             </header>
             <main class="content-container grid">
-                <% dialogs.forEach(dialog => { %>
-                    <dialog class="dialog-tool <%= dialog.id == "uploadFile" ? "dialog-tool-upload-file" : "" %>" id="<%= dialog.id %>Dialog">
-                        <div class="dialog-tool-content-container grid">
-                            <header class="dialog-tool-header flex">
-                                <h2 class="dialog-tool-dialog"><%= dialog.title %></h2>
-                                <button type="button" id="<%= dialog.id %>DialogCloseBtn" class="dialog-tool-close-btn">✖</button>
-                            </header>
-                            <% if (dialog.isForm) { %>
-                                <form 
-                                    method="<%= dialog.formMethod %>" 
-                                    action="<%= dialog.formAction %>"
-                                    id="<%= dialog.id %>Form"
-                                    <% if (dialog.id == "uploadFile") { %>
-                                        enctype="multipart/form-data"
-                                        class="dialog-tool-content flex"
-                                    <% } else { %>
-                                        class="dialog-tool-content flex dialog-tool-content-no-border"
-                                    <% } %>
-                                >
-                            <% } else { %>
-                                <div class="dialog-tool-content flex dialog-tool-content-no-border">
-                            <% } %>
-                                <div class="dialog-tool-content-inputs-container flex-column">
-                                    <% if (dialog.inputType == "text") { %>
-                                        <label for="<%= dialog.id %>DialogInput" class="dialog-input-label"><%= dialog.inputLabel %></label>
-                                    <% } %>
-                                    <input 
-                                        id="<%= dialog.id %>DialogInput"
-                                        type="<%= dialog.inputType %>" 
-                                        <% if (dialog.inputType == "file") { %>
-                                            class="input-file" 
-                                            multiple
-                                            tabindex="-1"
-                                            name="uploaded_files"
-                                        <% } else { %>
-                                            class="dialog-tool-content-input"
-                                            placeholder="<%= dialog.placeholder %>"
-                                        <% } %>
-                                    >
-                                </div>
-                                <% if (dialog.id == "uploadFile") { %>
-                                    <div class="add-file-icon-container">
-                                        <svg
-                                            class="add-file-icon" 
-                                            xmlns="http://www.w3.org/2000/svg" 
-                                            height="24px" 
-                                            viewBox="0 -960 960 960" 
-                                            width="24px"
-                                            fill="#e3e3e3"
-                                        >
-                                            <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z"/>
-                                        </svg>
-                                    </div>
-                                <% } %>
-                            <% if (dialog.isForm) { %>
-                                </form>
-                            <% } else { %>
-                                </div>
-                            <% } %>
-                            <section class="dialog-tool-footer flex">
-                                <button 
-                                    class="dialog-tool-footer-btn" 
-                                    id="<%= dialog.id %>DialogCancelBtn"
-                                >
-                                    <%= dialog.cancelBtn %>
-                                </button>
-                                <button 
-                                    class="dialog-tool-footer-btn dialog-tool-footer-submit" 
-                                    id="<%= dialog.id %>DialogSubmitBtn"
-                                    <% if (dialog.isForm) { %>
-                                        type="submit"
-                                        form="<%= dialog.id %>Form"
-                                        value="<%= dialog.submitBtn %>"
-                                    <% } %>
-                                >
-                                    <%= dialog.submitBtn %>
-                                </button>
-                            </section>
-                        </div>
-                    </dialog>
-                <% }); %>
                 <section class="folders-section content">
                     <div class="content-title-container folders-section-content flex">
                         <svg 
@@ -173,18 +87,35 @@
                     <div class="folders-section-content content-data folders-section-content-data flex-column">
                         <% if (folders) { %>
                             <% folders.forEach((folder) => { %>
-                                <div class="content-folder-container flex">
-                                    <svg 
-                                        class="content-folder-icon"
+                                <div class="content-folder-container flex" data-folder-id=<%= folder.id %>>
+                                    <div class="content-folder-container-icon-name flex">
+                                        <svg 
+                                            class="content-folder-icon"
+                                            xmlns="http://www.w3.org/2000/svg" 
+                                            height="24px" 
+                                            viewBox="0 -960 960 960" 
+                                            width="24px" 
+                                            fill="#e3e3e3"
+                                        >
+                                            <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
+                                        </svg>
+                                        <p 
+                                            class="content-folder content-name"
+                                            title="<%= folder.name %>"
+                                        >
+                                            <%= folder.name %>
+                                        </p>
+                                    </div>
+                                    <svg
+                                        class="content-folder-icon content-folder-more-icon more-options-folder-btn"
                                         xmlns="http://www.w3.org/2000/svg" 
                                         height="24px" 
                                         viewBox="0 -960 960 960" 
                                         width="24px" 
                                         fill="#e3e3e3"
                                     >
-                                        <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
+                                        <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/>
                                     </svg>
-                                    <p class="content-folder content-name"><%= folder.name %></p>
                                 </div>
                             <% }) %>
                         <% } %>
@@ -246,5 +177,97 @@
                 </a>
             </footer>
         </div>
+        <dialog class="user-data-dialog" id="userDataDialog">
+            <ul class="user-data-dialog-list flex-column">
+                <li class="user-data-dialog-list-logout"><a href="/logout">Logout</a></li>
+            </ul>
+        </dialog>
+        <dialog class="user-data-dialog" id="folderOptionsDialog">
+            <ul class="user-data-dialog-list user-data-dialog-list-folder flex-column">
+                <li class="user-data-dialog-list-folder-opt rename-folder-btn" id="renameFolderBtn">Rename</li>
+                <li class="user-data-dialog-list-folder-opt delete-folder-btn" id="deleteFolderBtn">Delete</li>
+            </ul>
+        </dialog>
+        <% dialogs.forEach(dialog => { %>
+            <dialog class="dialog-tool <%= dialog.id == "uploadFile" ? "dialog-tool-upload-file" : "" %>" id="<%= dialog.id %>Dialog">
+                <div class="dialog-tool-content-container grid">
+                    <header class="dialog-tool-header flex">
+                        <h2 class="dialog-tool-dialog"><%= dialog.title %></h2>
+                        <button type="button" id="<%= dialog.id %>DialogCloseBtn" class="dialog-tool-close-btn">✖</button>
+                    </header>
+                    <% if (dialog.isForm) { %>
+                        <form 
+                            method="<%= dialog.formMethod %>" 
+                            action="<%= dialog.formAction %>"
+                            id="<%= dialog.id %>Form"
+                            <% if (dialog.id == "uploadFile") { %>
+                                enctype="multipart/form-data"
+                                class="dialog-tool-content flex"
+                            <% } else { %>
+                                class="dialog-tool-content flex dialog-tool-content-no-border"
+                            <% } %>
+                        >
+                    <% } else { %>
+                        <div class="dialog-tool-content flex dialog-tool-content-no-border">
+                    <% } %>
+                        <div class="dialog-tool-content-inputs-container flex-column">
+                            <% if (dialog.inputType == "text") { %>
+                                <label for="<%= dialog.id %>DialogInput" class="dialog-input-label"><%= dialog.inputLabel %></label>
+                            <% } %>
+                            <input 
+                                id="<%= dialog.id %>DialogInput"
+                                type="<%= dialog.inputType %>" 
+                                <% if (dialog.inputType == "file") { %>
+                                    class="input-file" 
+                                    multiple
+                                    tabindex="-1"
+                                    name="uploaded_files"
+                                <% } else { %>
+                                    class="dialog-tool-content-input"
+                                    placeholder="<%= dialog.placeholder %>"
+                                <% } %>
+                            >
+                        </div>
+                        <% if (dialog.id == "uploadFile") { %>
+                            <div class="add-file-icon-container">
+                                <svg
+                                    class="add-file-icon" 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    height="24px" 
+                                    viewBox="0 -960 960 960" 
+                                    width="24px"
+                                    fill="#e3e3e3"
+                                >
+                                    <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z"/>
+                                </svg>
+                            </div>
+                        <% } %>
+                    <% if (dialog.isForm) { %>
+                        </form>
+                    <% } else { %>
+                        </div>
+                    <% } %>
+                    <section class="dialog-tool-footer flex">
+                        <button 
+                            class="dialog-tool-footer-btn" 
+                            id="<%= dialog.id %>DialogCancelBtn"
+                        >
+                            <%= dialog.cancelBtn %>
+                        </button>
+                        <button 
+                            class="dialog-tool-footer-btn dialog-tool-footer-submit" 
+                            id="<%= dialog.id %>DialogSubmitBtn"
+                            <% if (dialog.isForm) { %>
+                                type="submit"
+                                form="<%= dialog.id %>Form"
+                                value="<%= dialog.submitBtn %>"
+                            <% } %>
+                        >
+                            <%= dialog.submitBtn %>
+                        </button>
+                    </section>
+                </div>
+            </dialog>
+        <% }); %>
     </body>
 </html>

@@ -1,6 +1,6 @@
 import express from "express";
 import { dialogs } from "../controllers/shared/navbar-tools.js";
-import { checkUserData } from "../controllers/db/db-query.js";
+import { checkUserDataOnDB } from "../controllers/db/db-query.js";
 
 const mainRouter = express.Router();
 
@@ -11,7 +11,7 @@ mainRouter.get("/", async (req, res) => {
     let folders = [];
 
     if (user) {
-        ({ folders } = await checkUserData(user.id));
+        ({ folders } = await checkUserDataOnDB(user.id));
     }
 
     res.render("index", { user, dialogs, folders });

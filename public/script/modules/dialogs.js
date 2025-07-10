@@ -1,23 +1,18 @@
-export function toggleDialog(triggerBtn, dialog) {
+export function showDialogNearTrigger(triggerBtn, dialog, options = {}) {
     if (!triggerBtn || !dialog) return;
 
-    triggerBtn.addEventListener("click", () => {
-        if (dialog.open) {
-            dialog.close();
-        } else {
-            dialog.show();
-        }
-    });
+    const { marginTop = 8 } = options;
 
-    document.addEventListener("click", (event) => {
-        if (
-            !triggerBtn.contains(event.target) &&
-            dialog.open &&
-            !dialog.contains(event.target)
-        ) {
-            dialog.close();
-        }
-    });
+    const rect = triggerBtn.getBoundingClientRect();
+    dialog.style.position = "absolute";
+    dialog.style.top = `${rect.bottom + window.scrollY + marginTop}px`;
+    dialog.style.left = `${rect.left + window.scrollX}px`;
+
+    if (dialog.open) {
+        dialog.close();
+    } else {
+        dialog.show();
+    }
 }
 
 export function closeOnOutsideClick(dialog) {

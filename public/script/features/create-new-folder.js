@@ -16,7 +16,7 @@ export function initFolderCreationDialog() {
             }
 
             try {
-                const res = await fetch("/newFolder", {
+                const res = await fetch("/folders", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ folderName }),

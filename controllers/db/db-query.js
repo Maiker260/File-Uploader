@@ -52,7 +52,7 @@ export async function createNewFolderOnDB(name, user) {
     }
 }
 
-export async function checkUserData(id) {
+export async function checkUserDataOnDB(id) {
     try {
         const user = await prisma.user.findUnique({
             where: { id },
@@ -69,6 +69,24 @@ export async function checkUserData(id) {
         return user;
     } catch (err) {
         console.log("Error finding the user:", err);
+    } finally {
+        await prisma.$disconnect();
+    }
+}
+
+export async function findFolderonDB(folderId) {
+    try {
+    } catch (err) {
+        console.log("Error finding the folder:", err);
+    } finally {
+        await prisma.$disconnect();
+    }
+}
+
+export async function deleteFolderOnDB(id) {
+    try {
+    } catch (err) {
+        console.log("Error deleting the folder:", err);
     } finally {
         await prisma.$disconnect();
     }

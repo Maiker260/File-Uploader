@@ -1,7 +1,8 @@
 import { getbyId, getDialog } from "./modules/dom-utils.js";
-import { toggleDialog, setupModalDialog } from "./modules/dialogs.js";
+import { showDialogNearTrigger, setupModalDialog } from "./modules/dialogs.js";
 import { setupToggleSidebar } from "./modules/sidebar.js";
 import { initFolderCreationDialog } from "./features/create-new-folder.js";
+import { initFolderOptionsDialog } from "./features/folder-options/folder-options.js";
 
 const { arrow, userData, userDataDialog } = {
     arrow: getbyId("arrow"),
@@ -26,8 +27,9 @@ const {
 // NEED TO REPLACE WHEN THE SIDEBAR EXISTS
 // setupToggleSidebar(userData, sidebar, "rotated");
 setupToggleSidebar(arrow, arrow, "rotated");
-toggleDialog(userData, userDataDialog);
+showDialogNearTrigger(userData, userDataDialog);
 
+// Upload Modal
 setupModalDialog(
     uploadFileBtn,
     uploadFileDialog,
@@ -35,6 +37,7 @@ setupModalDialog(
     uploadFileDialogCancelBtn
 );
 
+// Create Folder Modal
 setupModalDialog(
     createNewFolderBtn,
     createNewFolderDialog,
@@ -43,3 +46,4 @@ setupModalDialog(
 );
 
 initFolderCreationDialog();
+initFolderOptionsDialog();

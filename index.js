@@ -14,7 +14,7 @@ import signUpRouter from "./routes/sign-up-route.js";
 import loginRouter from "./routes/login-route.js";
 import logoutRouter from "./routes/log-out-route.js";
 import uploadRouter from "./routes/upload-route.js";
-import newFolderRouter from "./routes/new-folder-route.js";
+import foldersRouter from "./routes/folder-route.js";
 import { loginAuthenticator } from "./controllers/auth/login/login-authenticator.js";
 import {
     serialize,
@@ -73,7 +73,7 @@ app.use("/sign-up", signUpRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/upload", uploadRouter);
-app.use("/newFolder", newFolderRouter);
+app.use("/folders", foldersRouter);
 
 app.listen("3000", () => {
     console.log("App running on Port 3000");

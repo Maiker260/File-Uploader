@@ -1,9 +1,9 @@
 import express from "express";
 import { createNewFolderOnDB } from "../controllers/db/db-query.js";
 
-const newFolderRouter = express.Router();
+const foldersRouter = express.Router();
 
-newFolderRouter.post("/", async (req, res) => {
+foldersRouter.post("/", async (req, res) => {
     const { folderName } = req.body;
 
     if (!req.user) {
@@ -21,4 +21,4 @@ newFolderRouter.post("/", async (req, res) => {
     }
 });
 
-export default newFolderRouter;
+export default foldersRouter;
