@@ -83,14 +83,14 @@ app.listen("3000", () => {
 // SIGTERM is triggered when your app is stopped by a system or hosting provider (like Heroku or Docker).
 // This ensures the Prisma connection pool is cleanly closed, which prevents dangling connections or errors on shutdown.
 
-process.on("SIGINT", async () => {
-    console.log("SIGINT received. Disconnecting Prisma...");
-    await prisma.$disconnect();
-    process.exit(0);
-});
+// process.on("SIGINT", async () => {
+//     console.log("SIGINT received. Disconnecting Prisma...");
+//     await prisma.$disconnect();
+//     process.exit(0);
+// });
 
-process.on("SIGTERM", async () => {
-    console.log("SIGTERM received. Disconnecting Prisma...");
-    await prisma.$disconnect();
-    process.exit(0);
-});
+// process.on("SIGTERM", async () => {
+//     console.log("SIGTERM received. Disconnecting Prisma...");
+//     await prisma.$disconnect();
+//     process.exit(0);
+// });
