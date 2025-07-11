@@ -1,4 +1,5 @@
 import { getDialog } from "../modules/dom-utils.js";
+import { folderServerRequest } from "./folder-options/folder-modules/folder-server-request.js";
 
 export function initFolderCreationDialog() {
     document.addEventListener("DOMContentLoaded", () => {
@@ -15,26 +16,7 @@ export function initFolderCreationDialog() {
                 return;
             }
 
-            try {
-                const res = await fetch("/folders", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ folderName }),
-                });
-
-                if (res.ok) {
-                    // Reload UI
-                    location.reload();
-                } else {
-                    const error = await res.json();
-                    alert(
-                        "Failed to create folder: " +
-                            (error.message || "Unknown error")
-                    );
-                }
-            } catch (err) {
-                alert("Network error or server unreachable.");
-            }
+            await folderServerRequest({ folderName }, "newFolder", "create");
         });
     });
 }

@@ -1,24 +1,24 @@
 import express from "express";
-import { createNewFolderOnDB } from "../controllers/db/db-query.js";
+import { handleFolderOperation } from "../controllers/shared/handle-folder-operation.js";
 
 const foldersRouter = express.Router();
 
-foldersRouter.post("/", async (req, res) => {
-    const { folderName } = req.body;
+foldersRouter.post("/newFolder", (req, res) => {
+    const { folderName } = req.body.data;
 
-    if (!req.user) {
-        return res.status(401).json({ message: "Unauthorized" });
-    }
+    handleFolderOperation(res, req.user, folderName, "create");
+});
 
-    try {
-        createNewFolderOnDB(folderName, req.user);
-        res.status(201).json({ message: "Folder created" });
-    } catch (err) {
-        res.status(500).json({
-            message: "Error creating folder",
-            error: err.message,
-        });
-    }
+foldersRouter.post("/renameFolder", (req, res) => {
+    const { folderId } = req.body.data;
+
+    handleFolderOperation(res, req.user, folderId, "rename");
+});
+
+foldersRouter.post("/deleteFolder", (req, res) => {
+    const { folderId } = req.body.data;
+
+    handleFolderOperation(res, req.user, folderId, "delete");
 });
 
 export default foldersRouter;

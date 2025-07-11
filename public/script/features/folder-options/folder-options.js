@@ -1,5 +1,7 @@
 import { getbyId } from "../../modules/dom-utils.js";
 import { showMoreOptionsDialog } from "./show-more-options-dialog.js";
+import { deleteFolder } from "./delete-folder.js";
+import { renameFolder } from "./rename-folder.js";
 
 export function initFolderOptionsDialog() {
     document.addEventListener("DOMContentLoaded", () => {
@@ -11,9 +13,9 @@ export function initFolderOptionsDialog() {
 
         document
             .querySelector(".folders-section-content-data")
-            .addEventListener("click", (e) => {
+            .addEventListener("click", (event) => {
                 showMoreOptionsDialog(
-                    e,
+                    event,
                     renameFolderBtn,
                     deleteFolderBtn,
                     folderOptionsDialog
@@ -30,12 +32,12 @@ export function initFolderOptionsDialog() {
             }
         });
 
-        deleteFolderBtn.addEventListener("click", () => {
-            alert(deleteFolderBtn.dataset.folderId);
+        deleteFolderBtn.addEventListener("click", async () => {
+            await deleteFolder(deleteFolderBtn.dataset.folderId);
         });
 
-        renameFolderBtn.addEventListener("click", () => {
-            alert(renameFolderBtn.dataset.folderId);
+        renameFolderBtn.addEventListener("click", async () => {
+            await renameFolder(renameFolderBtn.dataset.folderId);
         });
     });
 }

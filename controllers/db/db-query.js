@@ -65,7 +65,7 @@ export async function checkUserDataOnDB(id) {
                 },
             },
         });
-
+        console.log(user);
         return user;
     } catch (err) {
         console.log("Error finding the user:", err);
@@ -74,7 +74,7 @@ export async function checkUserDataOnDB(id) {
     }
 }
 
-export async function findFolderonDB(folderId) {
+export async function findFolderonDB(id) {
     try {
     } catch (err) {
         console.log("Error finding the folder:", err);
@@ -83,10 +83,20 @@ export async function findFolderonDB(folderId) {
     }
 }
 
-export async function deleteFolderOnDB(id) {
+export async function dbQuery(model, request, args) {
+    let formatedName = request.slice(0, -1) + "ing";
+
+    if (request == "find") {
+        request = "findUnique";
+        formatedName == "finding";
+    }
+
     try {
+        const data = await prisma[model][request]?.(args);
+        console.log(data);
+        return data;
     } catch (err) {
-        console.log("Error deleting the folder:", err);
+        console.log(`Error ${formatedName} the ${model}:`, err);
     } finally {
         await prisma.$disconnect();
     }
