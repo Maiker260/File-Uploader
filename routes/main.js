@@ -1,7 +1,6 @@
 import express from "express";
 import { dialogs } from "../controllers/shared/navbar-tools.js";
-import { checkUserDataOnDB } from "../controllers/db/db-query.js";
-// import { checkUserDataOnDB } from "../controllers/db/queries/check-user-data.js";
+import { checkUserDataOnDB } from "../controllers/db/queries/check-user-data.js";
 
 const mainRouter = express.Router();
 

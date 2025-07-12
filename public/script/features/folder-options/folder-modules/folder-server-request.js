@@ -1,9 +1,9 @@
-export async function folderServerRequest(dataObject, path, request) {
+export async function folderServerRequest(data, path, request) {
     try {
         const res = await fetch(`/folders/${path}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ data: dataObject }),
+            body: JSON.stringify({ data }),
         });
 
         if (res.ok) {

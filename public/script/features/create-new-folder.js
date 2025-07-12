@@ -1,6 +1,7 @@
 import { getDialog } from "../modules/dom-utils.js";
 import { folderServerRequest } from "./folder-options/folder-modules/folder-server-request.js";
 
+// REPLACE THIS AND CREATE A REUSABLE FUNCTION FOR THE RENAME AND DELETE BTNs
 export function initFolderCreationDialog() {
     document.addEventListener("DOMContentLoaded", () => {
         const { createNewFolderDialogSubmitBtn, createNewFolderDialogInput } =

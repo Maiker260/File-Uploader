@@ -87,7 +87,11 @@
                     <div class="folders-section-content content-data folders-section-content-data flex-column">
                         <% if (folders) { %>
                             <% folders.forEach((folder) => { %>
-                                <div class="content-folder-container flex" data-folder-id=<%= folder.id %>>
+                                <div 
+                                    class="content-folder-container flex" 
+                                    data-folder-id=<%= folder.id %> 
+                                    data-folder-parent=<%= folder.parentId %> 
+                                >
                                     <div class="content-folder-container-icon-name flex">
                                         <svg 
                                             class="content-folder-icon"

@@ -1,4 +1,4 @@
-import { findUserOnDB } from "../../db/db-query.js";
+import { findUserOnDB } from "../../db/queries/find-user.js";
 
 export function serialize(user, done) {
     done(null, user.id);

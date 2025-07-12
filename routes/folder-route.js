@@ -10,9 +10,9 @@ foldersRouter.post("/newFolder", (req, res) => {
 });
 
 foldersRouter.post("/renameFolder", (req, res) => {
-    const { folderId } = req.body.data;
+    const data = req.body.data;
 
-    handleFolderOperation(res, req.user, folderId, "rename");
+    handleFolderOperation(res, req.user, data, "rename");
 });
 
 foldersRouter.post("/deleteFolder", (req, res) => {

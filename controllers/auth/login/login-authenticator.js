@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { findUserOnDB } from "../../db/db-query.js";
+import { findUserOnDB } from "../../db/queries/find-user.js";
 
 export async function loginAuthenticator(
     emailOrUsername,

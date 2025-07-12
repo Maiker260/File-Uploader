@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import { findUserOnDB } from "../../db/db-query.js";
+import { findUserOnDB } from "../../db/queries/find-user.js";
 
 export const signUpValidator = [
     body("usernameSignUp")

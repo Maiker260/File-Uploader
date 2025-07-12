@@ -1,4 +1,4 @@
-import { showDialogNearTrigger } from "../../modules/dialogs.js";
+import { showDialogNearTrigger } from "../../modules/dialogs/dialogs.js";
 
 export function showMoreOptionsDialog(e, renameBtn, deleteBtn, dialog) {
     const triggerBtn = e.target;
@@ -6,9 +6,13 @@ export function showMoreOptionsDialog(e, renameBtn, deleteBtn, dialog) {
 
     if (triggerBtn.classList.contains("more-options-folder-btn")) {
         const folderId = container.dataset.folderId;
+        const parentId = container.dataset.parentId || null;
 
         renameBtn.dataset.folderId = folderId;
+        renameBtn.dataset.parentId = parentId;
+
         deleteBtn.dataset.folderId = folderId;
+        deleteBtn.dataset.parentId = parentId;
 
         showDialogNearTrigger(triggerBtn, dialog, {
             marginTop: 1,

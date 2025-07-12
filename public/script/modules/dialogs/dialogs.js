@@ -1,3 +1,5 @@
+import { attachCloseHandlers } from "./attachCloseHandlers.js";
+
 export function showDialogNearTrigger(triggerBtn, dialog, options = {}) {
     if (!triggerBtn || !dialog) return;
 
@@ -29,13 +31,24 @@ export function closeOnOutsideClick(dialog) {
     });
 }
 
-export function setupModalDialog(openBtn, dialog, closeBtn, cancelBtn) {
-    if (openBtn && dialog) {
-        openBtn.addEventListener("click", () => dialog.showModal());
-        closeOnOutsideClick(dialog);
-    }
-    if (closeBtn || cancelBtn) {
-        closeBtn.addEventListener("click", () => dialog.close());
-        cancelBtn.addEventListener("click", () => dialog.close());
-    }
+export function setupModalDialog(
+    openBtn,
+    dialog,
+    closeBtn,
+    cancelBtn,
+    isManagedItem = null,
+    actionFunction = null
+) {
+    if (!openBtn || !dialog) return;
+
+    openBtn.addEventListener("click", (e) => {
+        if (isManagedItem) {
+            actionFunction(e.target);
+        }
+        dialog.showModal();
+    });
+
+    closeOnOutsideClick(dialog);
+
+    attachCloseHandlers(dialog, closeBtn, cancelBtn);
 }

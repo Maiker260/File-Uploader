@@ -13,5 +13,5 @@ export async function checkUserDataOnDB(id) {
         },
     };
 
-    await dbQuery("user", "find", args);
+    return await dbQuery("user", "find", args);
 }

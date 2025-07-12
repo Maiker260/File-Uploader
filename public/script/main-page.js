@@ -1,5 +1,8 @@
 import { getbyId, getDialog } from "./modules/dom-utils.js";
-import { showDialogNearTrigger, setupModalDialog } from "./modules/dialogs.js";
+import {
+    showDialogNearTrigger,
+    setupModalDialog,
+} from "./modules/dialogs/dialogs.js";
 import { setupToggleSidebar } from "./modules/sidebar.js";
 import { initFolderCreationDialog } from "./features/create-new-folder.js";
 import { initFolderOptionsDialog } from "./features/folder-options/folder-options.js";
@@ -47,3 +50,5 @@ setupModalDialog(
 
 initFolderCreationDialog();
 initFolderOptionsDialog();
+
+// NEED TO REFACTOR THIS FILE

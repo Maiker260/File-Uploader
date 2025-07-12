@@ -1,7 +1,7 @@
 import express from "express";
 import expressSession from "express-session";
 import { Strategy as LocalStrategy } from "passport-local";
-import { PrismaClient } from "@prisma/client";
+import prisma from "./controllers/db/prisma.js";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -21,10 +21,10 @@ import {
     deserialize,
 } from "./controllers/auth/login/passport-session.js";
 
+await prisma.$connect();
 dotenv.config();
 
 const app = express();
-const prisma = new PrismaClient();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
