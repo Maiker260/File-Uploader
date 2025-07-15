@@ -1,6 +1,6 @@
 import { getbyId } from "../../modules/dom-utils.js";
 import { showMoreOptionsDialog } from "./show-more-options-dialog.js";
-import { initFolderOptionDialog } from "./folder-modules/init-folder-option-dialog.js";
+import { setupFolderOptionsModals } from "./setup-folder-options-modals.js";
 
 export function initFolderOptionsDialog() {
     document.addEventListener("DOMContentLoaded", () => {
@@ -31,6 +31,6 @@ export function initFolderOptionsDialog() {
             }
         });
 
-        initFolderOptionDialog();
+        setupFolderOptionsModals();
     });
 }

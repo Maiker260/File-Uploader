@@ -14,18 +14,20 @@ export async function handleFolderOperation(res, user, data, request) {
     };
 
     try {
-        if (request == "rename") {
-            await actions[request]?.(data, user);
-        } else {
-            await actions[request]?.(data, user);
-        }
+        await actions[request]?.(data, user);
+
         res.status(201).json({ message: `Folder ${request}d` });
     } catch (err) {
-        const formatedName = request.slice(0, -1) + "ing";
+        let formatedName;
 
-        res.status(500).json({
-            message: `Error ${formatedName} folder`,
-            error: err.message,
+        if (request == "find") {
+            formatedName = "finding";
+        } else {
+            formatedName = request.slice(0, -1) + "ing";
+        }
+
+        res.status(400).json({
+            message: err.message || `Error ${formatedName} folder`,
         });
     }
 }

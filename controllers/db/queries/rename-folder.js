@@ -1,8 +1,12 @@
 import { dbQuery } from "../db-query.js";
 import { findFolderOnDB } from "./find-folder.js";
 
-export async function renameFolderOnDB({ folderId, newName, parentId }, user) {
+export async function renameFolderOnDB(
+    { folderId, folderName, parentId },
+    user
+) {
     const folder = await findFolderOnDB({ id: folderId });
+    const newName = folderName;
 
     if (!folder) {
         throw new Error("Folder not found");

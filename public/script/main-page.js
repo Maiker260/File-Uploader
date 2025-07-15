@@ -4,8 +4,8 @@ import {
     setupModalDialog,
 } from "./modules/dialogs/dialogs.js";
 import { setupToggleSidebar } from "./modules/sidebar.js";
-import { initFolderCreationDialog } from "./features/create-new-folder.js";
-import { initFolderOptionsDialog } from "./features/folder-options/folder-options.js";
+import { initFolderModals } from "./features/init-folder-modals.js";
+import { initFolderOptionsDialog } from "./features/folder-options/init-folder-options-dialog.js";
 
 const { arrow, userData, userDataDialog } = {
     arrow: getbyId("arrow"),
@@ -48,7 +48,7 @@ setupModalDialog(
     createNewFolderDialogCancelBtn
 );
 
-initFolderCreationDialog();
+initFolderModals();
 initFolderOptionsDialog();
 
 // NEED TO REFACTOR THIS FILE

@@ -3,22 +3,22 @@ import { handleFolderOperation } from "../controllers/shared/handle-folder-opera
 
 const foldersRouter = express.Router();
 
-foldersRouter.post("/newFolder", (req, res) => {
+foldersRouter.post("/newFolder", async (req, res) => {
     const { folderName } = req.body.data;
 
-    handleFolderOperation(res, req.user, folderName, "create");
+    await handleFolderOperation(res, req.user, folderName, "create");
 });
 
-foldersRouter.post("/renameFolder", (req, res) => {
+foldersRouter.post("/renameFolder", async (req, res) => {
     const data = req.body.data;
 
-    handleFolderOperation(res, req.user, data, "rename");
+    await handleFolderOperation(res, req.user, data, "rename");
 });
 
-foldersRouter.post("/deleteFolder", (req, res) => {
-    const { folderId } = req.body.data;
+foldersRouter.post("/deleteFolder", async (req, res) => {
+    const data = req.body.data;
 
-    handleFolderOperation(res, req.user, folderId, "delete");
+    await handleFolderOperation(res, req.user, data, "delete");
 });
 
 export default foldersRouter;

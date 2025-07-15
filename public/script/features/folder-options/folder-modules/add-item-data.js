@@ -1,9 +1,6 @@
-import { renameFolder } from "../rename-folder.js";
+export async function addItemData(triggerBtn, dialog) {
+    const { folderId, parentId } = triggerBtn.dataset;
 
-export async function addItemData(triggerBtn) {
-    const dataset = triggerBtn.dataset;
-    const { folderId } = dataset;
-    const { parentId } = dataset;
-
-    // await renameFolder({ folderId, parentId });
+    dialog.dataset.folderId = folderId;
+    dialog.dataset.parentId = parentId;
 }

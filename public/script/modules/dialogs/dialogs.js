@@ -43,7 +43,7 @@ export function setupModalDialog(
 
     openBtn.addEventListener("click", (e) => {
         if (isManagedItem) {
-            actionFunction(e.target);
+            actionFunction(e.target, dialog);
         }
         dialog.showModal();
     });

@@ -10,11 +10,15 @@ export async function folderServerRequest(data, path, request) {
             // Reload UI
             location.reload();
         } else {
-            const error = await res.json();
-            alert(
-                `Failed to ${request} folder: ` +
-                    (error.message || "Unknown error")
-            );
+            let error = { message: "Unknown error" };
+            try {
+                error = await res.json();
+            } catch (e) {
+                // Fall back to default error message
+            }
+
+            alert(`Failed to ${request} folder: ${error.message}`);
+            return;
         }
     } catch (err) {
         alert("Network error or server unreachable.");

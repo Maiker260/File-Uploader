@@ -12,6 +12,7 @@ mainRouter.get("/", async (req, res) => {
 
     if (user) {
         ({ folders } = await checkUserDataOnDB(user.id));
+        folders.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     res.render("index", { user, dialogs, folders });
