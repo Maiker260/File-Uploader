@@ -14,14 +14,14 @@ const {
     loginForm: getById("loginForm"),
     signUpForm: getById("signUpForm"),
     submitBtn: getById("submitBtn"),
-    form: getById("form"),
+    form: getById("authForm"),
     successBanner: getById("successBanner"),
 };
 
 // Hide Banner if the User creation was sucessfully.
 if (successBanner) {
     setTimeout(() => {
-        banner.classList.add("fade-out");
+        successBanner.classList.add("fade-out");
     }, 3000);
 }
 

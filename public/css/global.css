@@ -28,6 +28,15 @@ body {
     overflow: hidden;
 }
 
+a.no-style {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.no-style:focus-visible {
+    outline: none;
+}
+
 .flex {
     display: flex;
 }
@@ -176,18 +185,6 @@ body {
 
 .user-data-dialog-list {
     list-style: none;
-}
-
-.user-data-dialog-list a {
-    text-decoration: none;
-}
-
-.user-data-dialog-list a:focus-visible {
-    outline: none;
-}
-
-.user-data-dialog-list a:active {
-    color: inherit;
 }
 
 .user-data-dialog-list-logout,

@@ -4,9 +4,9 @@ import { handleFolderOperation } from "../controllers/shared/handle-folder-opera
 const foldersRouter = express.Router();
 
 foldersRouter.post("/newFolder", async (req, res) => {
-    const { folderName } = req.body.data;
+    const data = req.body.data;
 
-    await handleFolderOperation(res, req.user, folderName, "create");
+    await handleFolderOperation(res, req.user, data, "create");
 });
 
 foldersRouter.post("/renameFolder", async (req, res) => {

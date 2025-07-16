@@ -12,6 +12,10 @@ export async function renameFolderOnDB(
         throw new Error("Folder not found");
     }
 
+    if (folder.isDefault) {
+        throw new Error("Main Folder can't be renamed.");
+    }
+
     const existing = await findFolderOnDB({
         name: newName,
         userId: user.id,

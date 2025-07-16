@@ -28,7 +28,7 @@ loginRouter.post(
         next();
     },
     passport.authenticate("local", {
-        successRedirect: "/",
+        successRedirect: "/myfiles",
         failureRedirect: "/auth?mode=login",
         failureMessage: true,
     })

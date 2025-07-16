@@ -20,7 +20,7 @@
                 <% } %>
             </header>
             <main class="content-container flex">
-                <form method="post" action="/<%= mode %>" class="form-container flex" id="Authform" autocomplete="off">
+                <form method="post" action="/<%= mode %>" class="form-container flex" id="authForm" autocomplete="off">
                     <header class="login-sign-up-options flex">
                         <button type="button" class="form-option <%= mode == "login" ? "form-option-active" : "" %>" id="loginOption">Log In</button>
                         <button type="button" class="form-option <%= mode == "login" ? "" : "form-option-active" %>" id="signUpOption">Sign Up</button>
@@ -119,7 +119,7 @@
                             <% }); %>
                         </article>
                     </section>
-                    <button type="submit" class="form-button border-round" id="submitBtn" form="Authform">
+                    <button type="submit" class="form-button border-round" id="submitBtn" form="authForm">
                          <%= mode == 'login' ? 'Login' : 'Sign Up' %>
                     </button>
                 </form>

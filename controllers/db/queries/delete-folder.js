@@ -8,6 +8,10 @@ export async function deleteFolderOnDB({ folderId, folderName }, user) {
         throw new Error("Folder name does not match.");
     }
 
+    if (folder.isDefault) {
+        throw new Error("Main Folder can't be deleted.");
+    }
+
     const args = {
         where: {
             id: folderId,

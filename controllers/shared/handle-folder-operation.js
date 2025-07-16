@@ -1,4 +1,4 @@
-import { createNewFolderOnDB } from "../db/queries/create-folder.js";
+import { createNewFolderOnDB } from "../db/queries/create-new-folder.js";
 import { renameFolderOnDB } from "../db/queries/rename-folder.js";
 import { deleteFolderOnDB } from "../db/queries/delete-folder.js";
 
@@ -16,7 +16,9 @@ export async function handleFolderOperation(res, user, data, request) {
     try {
         await actions[request]?.(data, user);
 
-        res.status(201).json({ message: `Folder ${request}d` });
+        if (!data.isDefault) {
+            res.status(201).json({ message: `Folder ${request}d` });
+        }
     } catch (err) {
         let formatedName;
 

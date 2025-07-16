@@ -13,58 +13,51 @@
             <header class="main-header">
                 <nav class="navbar flex">
                     <a href="/" class="main-title">File Uploader</a>
-                    <% if (user && user.username) {%>
-                        <div class="user-info-container flex">
-                            <div class="user-tools flex">
-                                <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="uploadFileBtn">
-                                    <svg
-                                        class="toolbar-icon"
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        height="24px" 
-                                        viewBox="0 -960 960 960" 
-                                        width="24px" 
-                                        fill="#e3e3e3"
-                                    >
-                                        <path d="M160-80v-80h640v80H160Zm200-160v-280H200l280-360 280 360H600v280H360Zm80-80h80v-280h76L480-750 364-600h76v280Zm40-280Z"/>
-                                    </svg>
-                                    <span class="toolbar-btn-name">Upload</span>
-                                </button>
-                                <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="createNewFolderBtn">
-                                    <svg 
-                                        class="toolbar-icon"
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        height="24px" 
-                                        viewBox="0 -960 960 960" 
-                                        width="24px" 
-                                        fill="#e3e3e3"
-                                    >
-                                        <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
-                                    </svg>
-                                    <span class="toolbar-btn-name">New Folder</span>
-                                </button>
-                            </div>
-                                <!-- NEED TO REMOVE THE FLEX CLASS, JUST 1 ITEM -->
-                            <div class="user-data flex">
-                                <p class="user-name" id="userData"><%= user.username  || "" %></p>
-                                <!-- NEED TO REMOVE THE DATASET AND PUT IT INTO THE SIDEBAR -->
-                                <svg 
-                                    class="arrow no-active"
-                                    data-active="false"
-                                    id="arrow" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none" 
-                                    xmlns="http://www.w3.org/2000/svg"
+                    <div class="user-info-container flex">
+                        <div class="user-tools flex">
+                            <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="uploadFileBtn">
+                                <svg
+                                    class="toolbar-icon"
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    height="24px" 
+                                    viewBox="0 -960 960 960" 
+                                    width="24px" 
+                                    fill="#e3e3e3"
                                 >
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" data-darkreader-inline-fill="" style="--darkreader-inline-fill: var(--darkreader-background-000000, #000000);"></path> </g>
-                                </svg>                        
-                            </div>
+                                    <path d="M160-80v-80h640v80H160Zm200-160v-280H200l280-360 280 360H600v280H360Zm80-80h80v-280h76L480-750 364-600h76v280Zm40-280Z"/>
+                                </svg>
+                                <span class="toolbar-btn-name">Upload</span>
+                            </button>
+                            <button class="upload-btn toolbar-btn-w-icon toolbar-btn flex" id="createNewFolderBtn">
+                                <svg 
+                                    class="toolbar-icon"
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    height="24px" 
+                                    viewBox="0 -960 960 960" 
+                                    width="24px" 
+                                    fill="#e3e3e3"
+                                >
+                                    <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
+                                </svg>
+                                <span class="toolbar-btn-name">New Folder</span>
+                            </button>
                         </div>
-                    <% } else { %>
-                        <div class="auth-btns-container flex">
-                            <a href="/auth?mode=login" class="toolbar-btn">Login</a>
-                            <a href="/auth?mode=sign-up" class="toolbar-btn">Sign Up</a>
+                            <!-- NEED TO REMOVE THE FLEX CLASS, JUST 1 ITEM -->
+                        <div class="user-data flex">
+                            <p class="user-name" id="userData"><%= user.username  || "" %></p>
+                            <!-- NEED TO REMOVE THE DATASET AND PUT IT INTO THE SIDEBAR -->
+                            <svg 
+                                class="arrow no-active"
+                                data-active="false"
+                                id="arrow" 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" data-darkreader-inline-fill="" style="--darkreader-inline-fill: var(--darkreader-background-000000, #000000);"></path> </g>
+                            </svg>                        
                         </div>
-                    <% } %>
+                    </div>
                 </nav>
             </header>
             <main class="content-container grid">
@@ -92,7 +85,10 @@
                                     data-folder-id=<%= folder.id %> 
                                     data-folder-parent=<%= folder.parentId %> 
                                 >
-                                    <div class="content-folder-container-icon-name flex">
+                                    <a 
+                                        class="no-style content-folder-container-icon-name flex"
+                                        href="/myfiles/<%= folder.id %>" 
+                                    >
                                         <svg 
                                             class="content-folder-icon"
                                             xmlns="http://www.w3.org/2000/svg" 
@@ -109,7 +105,7 @@
                                         >
                                             <%= folder.name %>
                                         </p>
-                                    </div>
+                                    </a>
                                     <svg
                                         class="content-folder-icon content-folder-more-icon more-options-folder-btn"
                                         xmlns="http://www.w3.org/2000/svg" 
@@ -183,7 +179,7 @@
         </div>
         <dialog class="user-data-dialog" id="userDataDialog">
             <ul class="user-data-dialog-list flex-column">
-                <li class="user-data-dialog-list-logout"><a href="/logout">Logout</a></li>
+                <li class="user-data-dialog-list-logout"><a class="no-style " href="/logout">Logout</a></li>
             </ul>
         </dialog>
         <dialog class="user-data-dialog" id="folderOptionsDialog">
@@ -193,7 +189,12 @@
             </ul>
         </dialog>
         <% dialogs.forEach(dialog => { %>
-            <dialog class="dialog-tool <%= dialog.id == "uploadFile" ? "dialog-tool-upload-file" : "" %>" id="<%= dialog.id %>Dialog">
+            <dialog 
+                class="dialog-tool <%= dialog.id == "uploadFile" ? "dialog-tool-upload-file" : "" %>" 
+                id="<%= dialog.id %>Dialog"
+                data-folder-id=<%= currentFolder.id %>
+                data-parent-id=<%= currentFolder.parentId %>
+            >
                 <div class="dialog-tool-content-container grid">
                     <header class="dialog-tool-header flex">
                         <h2 class="dialog-tool-dialog"><%= dialog.title %></h2>
