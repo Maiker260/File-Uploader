@@ -2,10 +2,11 @@ import { dbQuery } from "../db-query.js";
 import { findFolderOnDB } from "./find-folder.js";
 
 export async function createNewFolderOnDB(data, user) {
-    const { folderName, isDefault, folderId, parentId } = data;
+    const { folderName, isDefault, placeIn } = data;
+    const parentId = placeIn;
 
     // If no explicit parentId, fallback to folderId
-    const resolvedParentId = parentId || folderId || null;
+    const resolvedParentId = parentId || null;
 
     const existing = await findFolderOnDB({
         userId: user.id,

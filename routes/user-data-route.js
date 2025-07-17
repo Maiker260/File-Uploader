@@ -11,5 +11,5 @@ userDataRouter.get(
     requireUser,
     renderIndexWithFolders((req) => req.params.id)
 );
-// NEED TO CREATE THE SUB FOLDERS STYLE AND REMOVE THE LINK ID FOR THE MAIN FOLDER
+
 export default userDataRouter;

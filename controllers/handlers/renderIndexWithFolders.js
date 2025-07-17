@@ -1,6 +1,7 @@
 import { checkUserDataOnDB } from "../db/queries/check-user-data.js";
 import { dialogs } from "../shared/navbar-tools.js";
 import { findFolderOnDB } from "../db/queries/find-folder.js";
+import { buildFolderTree } from "../shared/build-folder-tree.js";
 
 export function renderIndexWithFolders(getFolderId = () => null) {
     return async function (req, res) {
@@ -22,6 +23,20 @@ export function renderIndexWithFolders(getFolderId = () => null) {
         const { folders } = await checkUserDataOnDB(user.id);
         folders.sort((a, b) => a.name.localeCompare(b.name));
 
-        res.render("index", { user, dialogs, folders, currentFolder });
+        const mainFolder = folders.find(
+            (folder) => folder.isDefault && folder.parentId === null
+        );
+
+        const mainFolderWithChildren = {
+            ...mainFolder,
+            children: buildFolderTree(folders, mainFolder.id),
+        };
+
+        res.render("index", {
+            user,
+            dialogs,
+            mainFolder: mainFolderWithChildren,
+            currentFolder,
+        });
     };
 }

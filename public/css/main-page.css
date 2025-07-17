@@ -58,6 +58,10 @@
     overflow: hidden;
 }
 
+.sub-folder {
+    margin-left: 1.5em;
+}
+
 .content-folder-icon {
     width: 20px;
     height: 20px;

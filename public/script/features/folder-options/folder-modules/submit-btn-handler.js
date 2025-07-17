@@ -25,6 +25,7 @@ export function submitBtnHandler(request) {
         const data = {
             folderId: dialog.dataset.folderId,
             parentId: dialog.dataset.parentId,
+            placeIn: dialog.dataset.folderId,
             folderName,
         };
 
