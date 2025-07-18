@@ -1,5 +1,8 @@
 .content-container {
     grid-template-columns: auto 1fr;
+    margin: 0 auto;
+    max-width: 1800px;
+    width: 100%;
 }
 
 .content-title-container {
