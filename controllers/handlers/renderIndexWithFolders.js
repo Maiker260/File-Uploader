@@ -12,7 +12,6 @@ export function renderIndexWithFolders(getFolderId = () => null) {
             ? await findFolderOnDB({ id: folderId })
             : await findFolderOnDB({
                   name: "MyFiles",
-                  isDefault: true,
                   parentId: null,
               });
 
