@@ -22,9 +22,15 @@ export function renderIndexWithFolders(getFolderId = () => null) {
         const { folders } = await checkUserDataOnDB(user.id);
         folders.sort((a, b) => a.name.localeCompare(b.name));
 
+        console.log(folders);
         const mainFolder = folders.find(
             (folder) => folder.isDefault && folder.parentId === null
         );
+
+        if (!mainFolder) {
+            console.error("No main folder found for user:", user.id);
+            return res.status(500).send("Main folder not found.");
+        }
 
         const mainFolderWithChildren = {
             ...mainFolder,
