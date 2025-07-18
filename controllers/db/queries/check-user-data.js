@@ -6,7 +6,6 @@ export async function checkUserDataOnDB(id) {
         include: {
             folders: {
                 include: {
-                    isDefault: true,
                     files: true,
                 },
             },
