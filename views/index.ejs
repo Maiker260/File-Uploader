@@ -98,21 +98,13 @@
                         </h3>
                     </div>
                     <div class="files-section-content content-data files-section-content-data flex-column">
-                        <div class="content-file-container">
-                            <p class="content-file content-name">MyData</p>
-                        </div>
-                        <div class="content-file-container">
-                            <p class="content-file content-name">MyData</p>
-                        </div>
-                        <div class="content-file-container">
-                            <p class="content-file content-name">MyData</p>
-                        </div>
-                        <div class="content-file-container">
-                            <p class="content-file content-name">MyData</p>
-                        </div>
-                        <div class="content-file-container">
-                            <p class="content-file content-name">MyData</p>
-                        </div>
+                        <% if (currentFolder.files.length > 0) { %>
+                            <% currentFolder.files.forEach(file => { %>
+                                <div class="content-file-container">
+                                    <p class="content-file content-name"><%= file.id %></p>
+                                </div>
+                            <% }); %>
+                        <% } %>
                     </div>
                 </section>
             </main>
@@ -192,6 +184,7 @@
                                     placeholder="<%= dialog.placeholder %>"
                                 <% } %>
                             >
+                            <input type="hidden" name="folderId" id="folderIdInput" value="<%= currentFolder.id %>">
                         </div>
                         <% if (dialog.id == "uploadFile") { %>
                             <div class="add-file-icon-container">
