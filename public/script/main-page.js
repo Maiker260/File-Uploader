@@ -6,6 +6,7 @@ import {
 import { setupToggleSidebar } from "./modules/sidebar.js";
 import { initFolderModals } from "./features/init-folder-modals.js";
 import { initFolderOptionsDialog } from "./features/folder-options/init-folder-options-dialog.js";
+import { transformFileDate } from "./transform-file-date.js";
 
 const { arrow, userData, userDataDialog } = {
     arrow: getbyId("arrow"),
@@ -50,5 +51,6 @@ setupModalDialog(
 
 initFolderModals();
 initFolderOptionsDialog();
+transformFileDate();
 
 // NEED TO REFACTOR THIS FILE

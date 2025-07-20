@@ -67,7 +67,9 @@
     justify-content: space-between;
 }
 
-.content-file-container-folder {
+.content-info-data-options {
+    gap: 1em;
+    align-items: center;
 }
 
 .content-file {

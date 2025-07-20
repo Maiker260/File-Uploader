@@ -32,7 +32,7 @@ export function renderIndexWithFolders(getFolderId = () => null) {
         if (!currentFolder) {
             return res.redirect("/myfiles");
         }
-        console.log(currentFolder);
+
         res.render("index", {
             user,
             dialogs,
