@@ -28,3 +28,7 @@ export async function storeFileOnDB(userId, folderId, file) {
 
     return await dbQuery("file", "create", args);
 }
+// NEED TO AVOID STORING THE FILE WITH THE DEFAULT NAME (STORE IT WITH ITS ID BUT SHOW THE ORIGINAL NAME)
+// NEED TO AVOID UPLOADING THE FILE IS THERE IS AN ERROR
+// NEED TO SHOW THE FILE DETAILS IN THE DASHBOARD
+//

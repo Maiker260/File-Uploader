@@ -7,6 +7,12 @@ export async function checkUserDataOnDB(id) {
             folders: {
                 include: {
                     files: true,
+                    children: {
+                        include: {
+                            files: true,
+                            children: true,
+                        },
+                    },
                 },
             },
         },

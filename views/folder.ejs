@@ -1,5 +1,5 @@
 <div 
-    class="content-folder-container flex" 
+    class="content-folder-container flex"
     data-folder-id="<%= folder.id %>" 
     data-folder-parent="<%= folder.parentId %>"
 >
@@ -20,9 +20,9 @@
 </div>
 
 <% if (folder.children && folder.children.length > 0) { %>
-    <div class="subfolder-section" style="margin-left: 1.5em;">
+    <div class="sub-folder" style="margin-left: 1.5em;">
         <% folder.children.forEach(child => { %>
-            <%- include('folder', { folder: child }) %>
+                <%- include('folder', { folder: child }) %>
         <% }) %>
     </div>
 <% } %>
