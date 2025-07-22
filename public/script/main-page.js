@@ -7,6 +7,8 @@ import { setupToggleSidebar } from "./modules/sidebar.js";
 import { initFolderModals } from "./features/init-folder-modals.js";
 import { initFolderOptionsDialog } from "./features/folder-options/init-folder-options-dialog.js";
 import { transformFileDate } from "./transform-file-date.js";
+import { initFileShareModal } from "./features/file-options/init-file-share-modal.js";
+import { initCopyUrlBtn } from "./features/file-options/copy-url.js";
 
 const { arrow, userData, userDataDialog } = {
     arrow: getbyId("arrow"),
@@ -51,6 +53,11 @@ setupModalDialog(
 
 initFolderModals();
 initFolderOptionsDialog();
+
+initFileShareModal();
+initCopyUrlBtn();
+
+// Transform the date into a more readable way
 transformFileDate();
 
 // NEED TO REFACTOR THIS FILE
