@@ -9,6 +9,7 @@ import { initFolderOptionsDialog } from "./features/folder-options/init-folder-o
 import { transformFileDate } from "./transform-file-date.js";
 import { initFileShareModal } from "./features/file-options/init-file-share-modal.js";
 import { initCopyUrlBtn } from "./features/file-options/copy-url.js";
+import { handleFileUploadSelection } from "./features/upload-file/handle-file-upload-selection.js";
 
 const { arrow, userData, userDataDialog } = {
     arrow: getbyId("arrow"),
@@ -56,6 +57,8 @@ initFolderOptionsDialog();
 
 initFileShareModal();
 initCopyUrlBtn();
+
+// handleFileUploadSelection();
 
 // Transform the date into a more readable way
 transformFileDate();

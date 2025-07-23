@@ -124,8 +124,7 @@
                             <% currentFolder.files.forEach(file => { %>
                                 <div class="content-file-container file-data flex" data-id="<%= file.id %>">
                                     <div class="content-info-data-container flex">
-                                        <a href="" class="content-file no-style flex">
-                                            
+                                        <a href="/myfiles/file/<%= file.id %>" class="content-file no-style flex">
                                             <p class="content-name"><%= file.storedName %></p>
                                         </a>
                                         <p class="content-info-data"><%= file.fileSize %> KB</p>
@@ -252,41 +251,42 @@
                     <% } else { %>
                         <div class="dialog-tool-content flex dialog-tool-content-no-border">
                     <% } %>
-                        <div class="dialog-tool-content-inputs-container flex-column">
-                            <% if (dialog.inputType == "text") { %>
-                                <label for="<%= dialog.id %>DialogInput" class="dialog-input-label"><%= dialog.inputLabel %></label>
-                            <% } %>
-                            <input 
-                                id="<%= dialog.id %>DialogInput"
-                                type="<%= dialog.inputType %>" 
-                                <% if (dialog.inputType == "file") { %>
-                                    class="input-file" 
-                                    multiple
-                                    tabindex="-1"
-                                    name="uploaded_files"
-                                <% } else { %>
-                                    class="dialog-tool-content-input"
-                                    placeholder="<%= dialog.placeholder %>"
+                            <div class="dialog-tool-content-inputs-container flex-column">
+                                <% if (dialog.inputType == "text") { %>
+                                    <label for="<%= dialog.id %>DialogInput" class="dialog-input-label"><%= dialog.inputLabel %></label>
                                 <% } %>
-                            >
-                            <input type="hidden" name="folderId" id="folderIdInput" value="<%= currentFolder.id %>">
-                        </div>
-                        <% if (dialog.id == "uploadFile") { %>
-                            <div class="add-file-icon-container">
-                                <svg
-                                    class="add-file-icon" 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    height="24px" 
-                                    viewBox="0 -960 960 960" 
-                                    width="24px"
-                                    fill="#e3e3e3"
+                                <input 
+                                    id="<%= dialog.id %>DialogInput"
+                                    type="<%= dialog.inputType %>" 
+                                    <% if (dialog.inputType == "file") { %>
+                                        class="input-file" 
+                                        multiple
+                                        tabindex="-1"
+                                        name="uploaded_files"
+                                    <% } else { %>
+                                        class="dialog-tool-content-input"
+                                        placeholder="<%= dialog.placeholder %>"
+                                    <% } %>
                                 >
-                                    <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z"/>
-                                </svg>
+                                <ul id="selectedFilesList" class="selected-files-list"></ul>
+                                <input type="hidden" name="folderId" id="folderIdInput" value="<%= currentFolder.id %>">
                             </div>
+                            <% if (dialog.id == "uploadFile") { %>
+                                <div class="add-file-icon-container">
+                                    <svg
+                                        class="add-file-icon" 
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        height="24px" 
+                                        viewBox="0 -960 960 960" 
+                                        width="24px"
+                                        fill="#e3e3e3"
+                                    >
+                                        <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z"/>
+                                    </svg>
+                                </div>
                         <% } %>
                     <% if (dialog.isForm) { %>
-                        </>
+                        </form>
                     <% } else { %>
                         </div>
                     <% } %>

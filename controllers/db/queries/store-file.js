@@ -4,7 +4,7 @@ export async function storeFileOnDB(userId, folderId, file) {
     if (!userId || !folderId || !file) {
         throw new Error("Missing required fields for file upload.");
     }
-
+    console.log("Stored");
     const { originalname, mimetype, path, size, filename } = file;
 
     // Convert size to KB (rounded to 2 decimal places)

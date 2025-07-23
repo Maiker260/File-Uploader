@@ -7,7 +7,7 @@ export const dialogs = [
         formMethod: "post",
         formAction: "/upload",
         cancelBtn: "CANCEL",
-        submitBtn: "SUBMIT",
+        submitBtn: "UPLOAD",
     },
     {
         id: "createNewFolder",
