@@ -39,4 +39,14 @@ export const dialogs = [
         cancelBtn: "CANCEL",
         submitBtn: "DELETE",
     },
+    {
+        id: "deleteFile",
+        title: "Delete File",
+        inputType: "text",
+        isForm: false,
+        inputLabel: "Confirm the File Name:",
+        placeholder: "File Name",
+        cancelBtn: "CANCEL",
+        submitBtn: "DELETE",
+    },
 ];

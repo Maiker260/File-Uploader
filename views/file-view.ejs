@@ -17,7 +17,7 @@
         </header>
         <main class="content-container file-content-container flex-column">
             <section class="file-content">
-                <% if (!isImage) { %>
+                <% if (isImage) { %>
                     <img src="/<%= currentFile.uploadPath %>" alt="<%= currentFile.storedName %>">
                 <% } else { %>
                     <article class="file-container flex-column">

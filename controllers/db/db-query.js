@@ -13,5 +13,6 @@ export async function dbQuery(model, request, args) {
         return data;
     } catch (err) {
         console.log(`Error ${formatedName} the ${model}:`, err);
+        throw err;
     }
 }

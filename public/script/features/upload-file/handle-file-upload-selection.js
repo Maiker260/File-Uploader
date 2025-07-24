@@ -1,14 +1,21 @@
 import { getbyId } from "../../modules/dom-utils.js";
-
-let selectedFiles = []; // Persist across dialog open/close
+import { renderFileList, updateInputFiles } from "./file-upload-ui.js";
 
 export function handleFileUploadSelection() {
     document.addEventListener("DOMContentLoaded", function () {
         const fileInput = getbyId("uploadFileDialogInput");
         const fileListContainer = getbyId("selectedFilesList");
+        const submitBtn = getbyId("uploadFileDialogSubmitBtn");
 
-        // Initial render in case dialog is reopened
-        renderFileList();
+        const folderIdInput = getbyId("folderIdInput");
+        let selectedFiles = [];
+
+        const updateUI = () => {
+            renderFileList(selectedFiles, fileListContainer, updateUI);
+            updateInputFiles(selectedFiles, fileInput);
+        };
+
+        updateUI();
 
         fileInput.addEventListener("change", (e) => {
             const newFiles = Array.from(e.target.files);
@@ -17,48 +24,45 @@ export function handleFileUploadSelection() {
                 const exists = selectedFiles.some(
                     (f) => f.name === file.name && f.size === file.size
                 );
-                if (!exists) {
-                    selectedFiles.push(file);
-                }
+                if (!exists) selectedFiles.push(file);
             });
 
-            renderFileList();
-            updateInputFiles();
-
-            // Reset file input so same file can be selected again
+            updateUI();
             fileInput.value = "";
         });
 
-        function renderFileList() {
-            fileListContainer.textContent = "";
-            selectedFiles.forEach((file, index) => {
-                const li = document.createElement("li");
-                li.textContent = `${file.name} (${(file.size / 1024).toFixed(
-                    1
-                )} KB)`;
-                li.classList.add("dialog-tool-upload-list");
+        submitBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
 
-                const removeBtn = document.createElement("button");
-                removeBtn.textContent = "✖";
-                removeBtn.type = "button";
-                removeBtn.style.marginLeft = "10px";
-                removeBtn.classList.add("dialog-tool-close-btn");
-                removeBtn.onclick = () => {
-                    selectedFiles.splice(index, 1);
-                    renderFileList();
-                    updateInputFiles();
-                };
+            const folderId = folderIdInput.value;
+            if (selectedFiles.length === 0) {
+                alert("Please select at least one file to upload.");
+                return;
+            }
 
-                li.appendChild(removeBtn);
-                fileListContainer.appendChild(li);
+            const formData = new FormData();
+            formData.append("folderId", folderId);
+            selectedFiles.forEach((file) => {
+                formData.append("uploaded_files", file);
             });
-        }
 
-        function updateInputFiles() {
-            const dataTransfer = new DataTransfer();
-            selectedFiles.forEach((file) => dataTransfer.items.add(file));
-            fileInput.files = dataTransfer.files;
-            console.log(fileInput.files);
-        }
+            try {
+                const res = await fetch("/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (res.ok) {
+                    window.location.href = `/myfiles/${folderId}`;
+                } else {
+                    const errorText = await res.text();
+                    console.error("Upload failed:", errorText);
+                    alert("Upload failed. Please try again.");
+                }
+            } catch (err) {
+                console.error("Error uploading:", err);
+                alert("Unexpected error occurred during upload.");
+            }
+        });
     });
 }

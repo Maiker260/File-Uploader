@@ -23,7 +23,10 @@ uploadRouter.post(
             res.redirect(`/myfiles/${folderId}`);
         } catch (err) {
             console.error("Upload error:", err);
-            res.status(500).send("Error uploading file.");
+
+            if (!res.headersSent) {
+                res.status(500).send("Error uploading file.");
+            }
         }
     }
 );

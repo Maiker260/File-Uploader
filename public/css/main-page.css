@@ -3,6 +3,7 @@
     margin: 0 auto;
     max-width: 1800px;
     width: 100%;
+    overflow: hidden;
 }
 
 .content-title-container {
@@ -70,6 +71,7 @@
 .content-info-data-options {
     gap: 1em;
     align-items: center;
+    min-width: 200px;
 }
 
 .content-file {
@@ -97,8 +99,7 @@
 }
 
 .content-folder-more-icon,
-.file-share-btn,
-.file-copy-url-btn {
+.content-folder-icon {
     cursor: pointer;
 }
 
@@ -116,13 +117,18 @@
 }
 
 .more-options-folder-btn:hover,
-.file-share-btn:hover,
-.file-copy-url-btn:hover {
+.content-folder-icon:hover {
     fill: #ff4d4d;
 }
 
 .files-section-content-data {
     gap: 0.5em;
+}
+
+.files-section-content-data,
+.folders-section-content-data {
+    overflow-y: auto;
+    max-height: calc(100vh - 168px);
 }
 
 /* Dialog Tool */
@@ -211,10 +217,13 @@
     display: flex;
     align-items: center;
 }
-
-/* .dialog-tool-upload-list {
-
-} */
+.upload-time {
+    font-size: 0.7rem;
+    color: var(--content-folder-data-color);
+    width: 130px;
+    text-align: right;
+    white-space: nowrap;
+}
 
 .share-file-content {
     justify-content: center;
