@@ -2,6 +2,7 @@ import express from "express";
 import { requireUser } from "../controllers/middleware/auth.js";
 import { renderIndexWithFolders } from "../controllers/handlers/renderIndexWithFolders.js";
 import { findFileOnDB } from "../controllers/db/queries/find-file.js";
+import { getImageUrl } from "../controllers/shared/get-image-url.js";
 
 const userDataRouter = express.Router();
 
@@ -33,7 +34,9 @@ userDataRouter.get("/file/:id", async (req, res) => {
         return res.render("unauthorized");
     }
 
-    res.render("file-view", { currentFile, isImage, isOwner });
+    const imageUrl = await getImageUrl(currentFile);
+
+    res.render("file-view", { currentFile, isImage, isOwner, imageUrl });
 });
 
 export default userDataRouter;

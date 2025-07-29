@@ -12,6 +12,12 @@
     gap: 1em;
 }
 
+.image-view {
+    max-width: 800px;
+    max-height: 800px;
+    object-fit: contain;
+}
+
 .file-download-container {
     justify-content: space-between;
     align-items: center;
@@ -28,6 +34,10 @@
 
 .file-name {
     font-weight: 500;
+}
+
+.navbar-download-btn {
+    color: var(--main-color) !important;
 }
 
 .file-download-btn {

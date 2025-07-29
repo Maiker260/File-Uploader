@@ -1,11 +1,11 @@
 import { dbQuery } from "../db-query.js";
 
-export async function storeFileOnDB(userId, folderId, file) {
+export async function storeFileOnDB(userId, folderId, file, uploadPath) {
     if (!userId || !folderId || !file) {
         throw new Error("Missing required fields for file upload.");
     }
 
-    const { originalname, mimetype, path, size, filename } = file;
+    const { originalname, mimetype, size, filename } = file;
 
     const sizeKB = Math.round(size / 1024);
 
@@ -21,7 +21,7 @@ export async function storeFileOnDB(userId, folderId, file) {
             storedName: filename,
             fileType: mimetype,
             fileSize: sizeKB,
-            uploadPath: path,
+            uploadPath,
         },
     };
 

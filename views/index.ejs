@@ -124,8 +124,8 @@
                             <% currentFolder.files.forEach(file => { %>
                                 <div class="content-file-container file-data flex" data-id="<%= file.id %>">
                                     <div class="content-info-data-container flex">
-                                        <a href="/myfiles/file/<%= file.id %>" class="content-file no-style flex">
-                                            <p class="content-name"><%= file.storedName %></p>
+                                        <a href="/myfiles/file/<%= file.id %>" class="content-file no-style flex" target="_blank">
+                                            <p class="content-name"><%= file.originalName %></p>
                                         </a>
                                         <p class="content-info-data"><%= file.fileSize %> KB</p>
                                     </div>
