@@ -1,6 +1,6 @@
 import { getDialog } from "../../modules/dom-utils.js";
 import { setupModalDialog } from "../../modules/dialogs/dialogs.js";
-import { addItemData } from "./folder-modules/add-item-data.js";
+import { addItemData } from "../../modules/add-item-data.js";
 
 export function setupFolderOptionsModals() {
     const modals = [

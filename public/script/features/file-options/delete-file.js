@@ -1,12 +1,12 @@
 import { getDialog } from "../../modules/dom-utils.js";
 import { fileServerRequest } from "./file-server-request.js";
+import { showBanner } from "../../modules/show-banner.js";
 
 const requestConfig = {
     deleteFile: { path: "deleteFile", action: "delete" },
-    deleteFolder: { path: "deleteFolder", action: "delete" },
 };
 
-export function fileSubmitBtnHandler(request) {
+export function deleteFileHandler(request) {
     const dialogElements = getDialog(request);
     const dialog = dialogElements[`${request}Dialog`];
     const submitBtn = dialogElements[`${request}DialogSubmitBtn`];
@@ -14,10 +14,15 @@ export function fileSubmitBtnHandler(request) {
 
     if (!submitBtn || !dialogInput) return;
 
-    submitBtn.addEventListener("click", async (e) => {
-        const filename = dialogInput.value.trim();
-        if (!filename) {
-            alert("File name cannot be empty.");
+    // Remove previous listener if it exists
+    if (submitBtn._handler) {
+        submitBtn.removeEventListener("click", submitBtn._handler);
+    }
+
+    const handleClick = async () => {
+        const inputValue = dialogInput.value.trim();
+        if (!inputValue) {
+            alert("Input name cannot be empty.");
             return;
         }
 
@@ -26,10 +31,17 @@ export function fileSubmitBtnHandler(request) {
 
         const data = {
             request,
-            folderId: dialog.dataset.folderId,
-            filename,
+            inputValue,
+            itemId: dialog.dataset.itemId,
         };
 
+        showBanner("Deleting", true);
+
         await fileServerRequest(data, option.action);
-    });
+    };
+
+    // Store the handler so it can be removed later
+    submitBtn._handler = handleClick;
+
+    submitBtn.addEventListener("click", handleClick);
 }

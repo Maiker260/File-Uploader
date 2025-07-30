@@ -1,5 +1,6 @@
 import { getDialog } from "../../../modules/dom-utils.js";
 import { folderServerRequest } from "./folder-server-request.js";
+import { showBanner } from "../../../modules/show-banner.js";
 
 const requestConfig = {
     createNewFolder: { path: "newFolder", action: "create" },
@@ -15,10 +16,17 @@ export function submitBtnHandler(request) {
 
     if (!submitBtn || !dialogInput) return;
 
-    submitBtn.addEventListener("click", async (e) => {
+    // Remove previous listener if it exists
+    if (submitBtn._handler) {
+        submitBtn.removeEventListener("click", submitBtn._handler);
+    }
+
+    const handleClick = async () => {
+        console.log("Attaching click listener to", submitBtn);
+
         const folderName = dialogInput.value.trim();
         if (!folderName) {
-            alert("Folder name cannot be empty.");
+            alert("Input cannot be empty.");
             return;
         }
 
@@ -30,8 +38,18 @@ export function submitBtnHandler(request) {
         };
 
         const option = requestConfig[request];
-        if (!option) return console.error(`Unknown request type: ${request}`);
+        if (!option) {
+            console.error(`Unknown request type: ${request}`);
+            return;
+        }
+
+        showBanner("Processing", true);
 
         await folderServerRequest(data, option.path, option.action);
-    });
+    };
+
+    // Store handler on the button so it can be removed later
+    submitBtn._handler = handleClick;
+
+    submitBtn.addEventListener("click", handleClick);
 }

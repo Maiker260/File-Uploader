@@ -7,7 +7,7 @@ export const shareFileAction = (clickedBtn, dialog) => {
     const copyBtn = getbyId("copyToClipboardBtn");
 
     if (shareURL && container?.dataset?.id) {
-        shareURL.value = `/myfiles/file/${container.dataset.id}`;
+        shareURL.value = `${window.location.origin}/myfiles/file/${container.dataset.id}`;
     }
 
     if (copyBtn) {

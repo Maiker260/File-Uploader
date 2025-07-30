@@ -1,4 +1,5 @@
 import express from "express";
+import { handleItemOperation } from "../controllers/shared/handle-item-operation.js";
 
 const fileRouter = express.Router();
 
@@ -7,13 +8,9 @@ fileRouter.post("/", (req, res) => {
 });
 
 fileRouter.post("/delete", async (req, res) => {
-    const data = req.body;
-    console.log(data);
+    const data = req.body.data;
 
-    // console.log("Deleted");
-    res.redirect("/");
-
-    // await handleFolderOperation(res, req.user, data, "delete");
+    await handleItemOperation(res, req.user, data, "delete", true);
 });
 
 export default fileRouter;

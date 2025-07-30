@@ -1,7 +1,9 @@
 import { getDialog } from "../../modules/dom-utils.js";
 import { setupModalDialog } from "../../modules/dialogs/dialogs.js";
 import { shareFileAction } from "./share-file-action.js";
-import { fileSubmitBtnHandler } from "./delete-file.js";
+import { deleteFileHandler } from "./delete-file.js";
+import { addItemData } from "../../modules/add-item-data.js";
+import { submitBtnHandler } from "../folder-options/folder-modules/submit-btn-handler.js";
 
 const modals = [
     {
@@ -10,11 +12,11 @@ const modals = [
     },
     {
         name: "deleteFile",
-        action: () => fileSubmitBtnHandler("deleteFile"),
+        action: () => deleteFileHandler("deleteFile"),
     },
     {
         name: "deleteFolder",
-        action: () => fileSubmitBtnHandler("deleteFolder"),
+        action: () => submitBtnHandler("deleteFolder"),
     },
 ];
 
@@ -38,6 +40,8 @@ export function manageFile() {
             if (dialogMap[dialogType]) {
                 const { dialog, closeBtn, cancelBtn, action } =
                     dialogMap[dialogType];
+
+                addItemData(btn, dialog);
 
                 setupModalDialog(
                     btn,

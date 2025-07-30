@@ -5,7 +5,6 @@ export async function folderServerRequest(data, path, request) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ data }),
         });
-
         if (res.ok) {
             // Reload UI
             location.reload();
@@ -16,7 +15,6 @@ export async function folderServerRequest(data, path, request) {
             } catch (e) {
                 // Fall back to default error message
             }
-
             alert(`Failed to ${request} folder: ${error.message}`);
             return;
         }

@@ -12,7 +12,7 @@ export function initCopyUrlBtn() {
                     return;
                 }
 
-                const shareURL = `/myfiles/file/${container.dataset.id}`;
+                const shareURL = `${window.location.origin}/myfiles/file/${container.dataset.id}`;
                 await copyToClipboard(shareURL);
             });
         });

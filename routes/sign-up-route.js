@@ -5,7 +5,7 @@ import { signUpHandler } from "../controllers/auth/sign-up/sign-up-handler.js";
 import { clearInputs } from "../controllers/auth/session/clear-inputs.js";
 import { parseSignUpFormData } from "../controllers/auth/sign-up/parse-sign-up-form-data.js";
 import { handleFormErrors } from "../controllers/shared/handle-form-errors.js";
-import { handleFolderOperation } from "../controllers/shared/handle-folder-operation.js";
+import { handleItemOperation } from "../controllers/shared/handle-item-operation.js";
 
 const signUpRouter = express.Router();
 
@@ -26,7 +26,7 @@ signUpRouter.post("/", signUpValidator, async (req, res) => {
     try {
         const user = await signUpHandler(username, email, password);
 
-        await handleFolderOperation(
+        await handleItemOperation(
             res,
             user,
             { name: "MyFiles", isDefault: true },

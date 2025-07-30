@@ -34,8 +34,9 @@ export const dialogs = [
         title: "Delete Folder",
         inputType: "text",
         isForm: false,
-        inputLabel: "Confirm the Folder Name:",
-        placeholder: "Folder Name",
+        inputLabel:
+            "To confirm deletion, type ' DELETE ' in the text input field.",
+        placeholder: "DELETE",
         cancelBtn: "CANCEL",
         submitBtn: "DELETE",
     },
@@ -44,8 +45,9 @@ export const dialogs = [
         title: "Delete File",
         inputType: "text",
         isForm: false,
-        inputLabel: "Confirm the File Name:",
-        placeholder: "File Name",
+        inputLabel:
+            "To confirm deletion, type ' DELETE ' in the text input field.",
+        placeholder: "DELETE",
         cancelBtn: "CANCEL",
         submitBtn: "DELETE",
     },

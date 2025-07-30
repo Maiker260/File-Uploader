@@ -1,13 +1,13 @@
-import { showCopyBanner } from "./show-copy-banner.js";
+import { showBanner } from "../../modules/show-banner.js";
 
 export async function copyToClipboard(text) {
     try {
         await navigator.clipboard.writeText(text);
 
-        showCopyBanner("Copied!");
+        showBanner("Copied!");
     } catch (err) {
         console.error("Failed to copy text to clipboard:", err);
 
-        showCopyBanner("Failed to copy!");
+        showBanner("Failed to copy!");
     }
 }

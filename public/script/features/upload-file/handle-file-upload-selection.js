@@ -1,13 +1,14 @@
 import { getbyId } from "../../modules/dom-utils.js";
-import { renderFileList, updateInputFiles } from "./file-upload-ui.js";
+import { renderFileList, updateInputFiles } from "./files-uploading-list.js";
+import { showBanner } from "../../modules/show-banner.js";
 
 export function handleFileUploadSelection() {
     document.addEventListener("DOMContentLoaded", function () {
         const fileInput = getbyId("uploadFileDialogInput");
         const fileListContainer = getbyId("selectedFilesList");
         const submitBtn = getbyId("uploadFileDialogSubmitBtn");
-
         const folderIdInput = getbyId("folderIdInput");
+
         let selectedFiles = [];
 
         const updateUI = () => {
@@ -46,6 +47,8 @@ export function handleFileUploadSelection() {
                 formData.append("uploaded_files", file);
             });
 
+            showBanner("Uploading...", true);
+
             try {
                 const res = await fetch("/upload", {
                     method: "POST",
@@ -57,11 +60,11 @@ export function handleFileUploadSelection() {
                 } else {
                     const errorText = await res.text();
                     console.error("Upload failed:", errorText);
-                    alert("Upload failed. Please try again.");
+                    showBanner("Upload failed. Please try again.");
                 }
             } catch (err) {
                 console.error("Error uploading:", err);
-                alert("Unexpected error occurred during upload.");
+                showBanner("Unexpected error occurred.");
             }
         });
     });
