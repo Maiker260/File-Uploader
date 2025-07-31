@@ -8,7 +8,9 @@ export async function getImageUrl(file) {
     const getObjectParams = {
         Bucket: bucketName,
         Key: file.uploadPath,
-        ResponseContentDisposition: `attachment; filename="${file.originalName}"`,
+        ResponseContentDisposition: `inline; filename="${file.originalName}"`,
+        ResponseContentType: file.fileType,
+        ResponseCacheControl: "public, max-age=86400",
     };
 
     const command = new GetObjectCommand(getObjectParams);

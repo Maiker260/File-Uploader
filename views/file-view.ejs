@@ -32,7 +32,7 @@
         <main class="content-container file-content-container flex-column">
             <section class="file-content">
                 <% if (isImage) { %>
-                    <img class="image-view" src="<%= imageUrl %>" alt="<%= currentFile.storedName %>">
+                    <img class="image-view" src="<%= imageUrl %>" alt="<%= currentFile.storedName %>" decoding="async" loading="lazy" width="800" height="auto">
                 <% } else { %>
                     <article class="file-container flex-column">
                         <div class="file-download-container flex">

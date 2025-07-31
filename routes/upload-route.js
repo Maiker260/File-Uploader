@@ -1,55 +1,26 @@
 import express from "express";
-import multer from "multer";
-import { uploadErrorHandler } from "../controllers/middleware/upload-error-handler.js";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
-import { s3Conn } from "../controllers/middleware/s3-client.js";
 import { storeFileOnDB } from "../controllers/db/queries/store-file.js";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
 
 const uploadRouter = express.Router();
-const storageHandler = multer.memoryStorage();
-const uploadedFiles = multer({ storage: storageHandler });
 
-uploadRouter.post(
-    "/",
-    uploadErrorHandler(uploadedFiles.array("uploaded_files")),
-    async (req, res) => {
-        const files = req.files;
-        const { folderId } = req.body;
-        const userId = req.user.id;
-        const bucketName = process.env.BUCKET_NAME;
+uploadRouter.post("/store-file-metadata", async (req, res) => {
+    const { key, name, folderId, mimetype, size } = req.body;
+    const userId = req.user.id;
 
-        try {
-            for (const file of files) {
-                const ext = path.extname(file.originalname);
-                const uniqueName = uuidv4() + ext;
-                file.filename = uniqueName;
+    try {
+        const file = {
+            originalname: name,
+            mimetype: mimetype || "application/octet-stream", // fallback
+            size: size || 0,
+            filename: key.split("/").pop(),
+        };
 
-                const s3Key = `uploads/${userId}/${uniqueName}`;
-
-                const params = {
-                    Bucket: bucketName,
-                    Key: s3Key,
-                    Body: file.buffer,
-                    ContentType: file.mimetype,
-                };
-
-                const s3Command = new PutObjectCommand(params);
-
-                await s3Conn.send(s3Command);
-                await storeFileOnDB(userId, folderId, file, s3Key);
-            }
-
-            res.redirect(`/myfiles/${folderId}`);
-        } catch (err) {
-            console.error("Upload error:", err);
-
-            if (!res.headersSent) {
-                res.status(500).send("Error uploading file.");
-            }
-        }
+        await storeFileOnDB(userId, folderId, file, key);
+        res.status(200).json({ success: true });
+    } catch (err) {
+        console.error("Metadata store error:", err);
+        res.status(500).json({ error: "Failed to store file metadata." });
     }
-);
+});
 
 export default uploadRouter;

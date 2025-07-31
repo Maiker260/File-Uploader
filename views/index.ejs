@@ -117,6 +117,7 @@
                                         <p class="content-info-data"><%= folder.children.length %> folder, <%= folder.files.length %> file</p>
                                     </div>
                                     <svg class="content-folder-icon delete-item-btn" data-dialog="deleteFolder" data-folder-id="<%= folder.id %>" data-parent-id="<%= folder.parentId %>" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                                        <title>Delete</title>
                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
                                     </svg>
                                 </div>
@@ -134,13 +135,16 @@
                                     </div>
                                     <div class="content-info-data-options flex">
                                         <svg class="content-folder-icon file-copy-url-btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                                            <title>Copy Link</title>
                                             <path d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z"/>
                                         </svg>
-                                        <svg class="content-folder-icon file-share-btn" data-dialog="shareFile" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                                        <svg class="content-folder-icon file-share-btn" data-dialog="shareFile" data-item-id="<%= file.id %>" data-public="<%= file.isPublic %>" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                                            <title>Share File</title>
                                             <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-200q0-17-11.5-28.5T680-240q-17 0-28.5 11.5T640-200q0 17 11.5 28.5T680-160ZM200-440q17 0 28.5-11.5T240-480q0-17-11.5-28.5T200-520q-17 0-28.5 11.5T160-480q0 17 11.5 28.5T200-440Zm480-280q17 0 28.5-11.5T720-760q0-17-11.5-28.5T680-800q-17 0-28.5 11.5T640-760q0 17 11.5 28.5T680-720Zm0 520ZM200-480Zm480-280Z"/>
                                         </svg>
                                         <span class="content-info-data upload-time" data-time="<%= file.uploadTime.toISOString() %>"></span>
                                         <svg class="content-folder-icon delete-item-btn" data-dialog="deleteFile" data-item-id="<%= file.id %>" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                                            <title>Delete</title>
                                             <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
                                         </svg>
                                     </div>
@@ -201,12 +205,13 @@
                         <input class="share-file-copy-url" type="text" name="share-file-copy-url" id="shareFileCopyURL" readonly>
                         <button id="copyToClipboardBtn" class="dialog-tool-footer-btn dialog-tool-footer-submit share-file-copy-btn">Copy Link</button>
                     </div>
-                    <form class="flex">
+                    <form id="changeFileVisibilityForm" method="post" action="/file/visibility" class="flex">
                         <div class="share-file-inputs share-file-visibility flex">
                             <label for="changeFileVisibility">
                                 Public:
                             </label>
-                            <input type="checkbox" name="changeFileVisibility" id="changeFileVisibility">
+                            <input type="checkbox" value="true" name="changeFileVisibility" id="changeFileVisibility">
+                            <input type="text" name="shareFileDataId" id="shareFileData" value="" hidden>
                         </div>
                     </form>
                 </section>
@@ -220,6 +225,7 @@
                     <button 
                         class="dialog-tool-footer-btn dialog-tool-footer-submit" 
                         id="shareFileDialogSubmitBtn"
+                        form="changeFileVisibilityForm"
                     >
                         APPLY CHANGES
                     </button>

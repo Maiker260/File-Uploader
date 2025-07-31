@@ -32,6 +32,7 @@ export function handleFileUploadSelection() {
             fileInput.value = "";
         });
 
+        // HAD TO MODIFY THE CODE TO AVOID CHARGES IN AWS WITH S3
         submitBtn.addEventListener("click", async (e) => {
             e.preventDefault();
 
@@ -41,29 +42,70 @@ export function handleFileUploadSelection() {
                 return;
             }
 
-            const formData = new FormData();
-            formData.append("folderId", folderId);
-            selectedFiles.forEach((file) => {
-                formData.append("uploaded_files", file);
-            });
-
             showBanner("Uploading...", true);
 
             try {
-                const res = await fetch("/upload", {
-                    method: "POST",
-                    body: formData,
-                });
+                for (const file of selectedFiles) {
+                    // 1. Ask server for pre-signed URL
+                    const urlRes = await fetch("/generate-upload-url", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            filename: file.name,
+                            filetype: file.type,
+                            filesize: file.size,
+                            folderId,
+                        }),
+                    });
 
-                if (res.ok) {
-                    window.location.href = `/myfiles/${folderId}`;
-                } else {
-                    const errorText = await res.text();
-                    console.error("Upload failed:", errorText);
-                    showBanner("Upload failed. Please try again.");
+                    if (!urlRes.ok) {
+                        const error = await urlRes.json();
+                        console.error("Presign error:", error);
+                        showBanner(`Upload blocked: ${error.error}`);
+                        return;
+                    }
+
+                    const { url, key } = await urlRes.json();
+
+                    // 2. Upload the file directly to S3
+                    const s3UploadRes = await fetch(url, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": file.type,
+                        },
+                        body: file,
+                    });
+
+                    if (!s3UploadRes.ok) {
+                        console.error("S3 upload failed");
+                        showBanner("S3 upload failed. Please try again.");
+                        return;
+                    }
+
+                    // 3. Notify server to store metadata
+                    const metaRes = await fetch("/upload/store-file-metadata", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            key,
+                            name: file.name,
+                            folderId,
+                            mimetype: file.type,
+                            size: file.size,
+                        }),
+                    });
+
+                    if (!metaRes.ok) {
+                        console.error("Metadata store failed");
+                        showBanner("Upload succeeded but saving failed.");
+                        return;
+                    }
                 }
+
+                // 4. Redirect on success
+                window.location.href = `/myfiles/${folderId}`;
             } catch (err) {
-                console.error("Error uploading:", err);
+                console.error("Upload error:", err);
                 showBanner("Unexpected error occurred.");
             }
         });

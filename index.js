@@ -17,6 +17,7 @@ import uploadRouter from "./routes/upload-route.js";
 import foldersRouter from "./routes/folder-route.js";
 import userDataRouter from "./routes/user-data-route.js";
 import fileRouter from "./routes/file-route.js";
+import generateUploadUrlRouter from "./routes/upload-presigned-route.js";
 import { loginAuthenticator } from "./controllers/auth/login/login-authenticator.js";
 import {
     serialize,
@@ -78,6 +79,7 @@ app.use("/upload", uploadRouter);
 app.use("/folders", foldersRouter);
 app.use("/myfiles", userDataRouter);
 app.use("/file", fileRouter);
+app.use("/generate-upload-url", generateUploadUrlRouter);
 
 app.listen("3000", () => {
     console.log("App running on Port 3000");
