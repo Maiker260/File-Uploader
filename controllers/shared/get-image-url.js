@@ -2,13 +2,15 @@ import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3Conn } from "../middleware/s3-client.js";
 
-export async function getImageUrl(file) {
+export async function getImageUrl(file, { forDownload = false } = {}) {
     const bucketName = process.env.BUCKET_NAME;
 
     const getObjectParams = {
         Bucket: bucketName,
         Key: file.uploadPath,
-        ResponseContentDisposition: `inline; filename="${file.originalName}"`,
+        ResponseContentDisposition: `${
+            forDownload ? "attachment" : "inline"
+        }; filename="${file.originalName}"`,
         ResponseContentType: file.fileType,
         ResponseCacheControl: "public, max-age=86400",
     };

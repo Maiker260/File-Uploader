@@ -17,6 +17,7 @@ fileRouter.post("/visibility", async (req, res) => {
 
         const referer = req.get("Referer") || "/";
         res.redirect(referer);
+        // res.redirect("/");
     } catch (err) {
         console.error("Error updating visibility:", err);
         res.status(500).send("Failed to update file visibility.");

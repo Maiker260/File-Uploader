@@ -17,8 +17,7 @@
                     <div>
                         <a 
                             class="no-style toolbar-btn-w-icon toolbar-btn flex navbar-download-btn" 
-                            href="<%= imageUrl %>"
-                            download="<%= currentFile.originalName %>"
+                            href="<%= downloadUrl %>"
                         >
                             <svg class="toolbar-icon image-download-btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                                 <path d="M160-80v-80h640v80H160Zm320-160L200-600h160v-280h240v280h160L480-240Zm0-130 116-150h-76v-280h-80v280h-76l116 150Zm0-150Z" />
@@ -32,7 +31,7 @@
         <main class="content-container file-content-container flex-column">
             <section class="file-content">
                 <% if (isImage) { %>
-                    <img class="image-view" src="<%= imageUrl %>" alt="<%= currentFile.storedName %>" decoding="async" loading="lazy" width="800" height="auto">
+                    <img class="image-view" src="<%= imageUrl %>" alt="<%= currentFile.storedName %>" decoding="async" loading="lazy" width="<%= currentFile.height %>" height=" <%= currentFile.width %>">
                 <% } else { %>
                     <article class="file-container flex-column">
                         <div class="file-download-container flex">
@@ -42,7 +41,7 @@
                                 </svg>
                                 <p class="file-name"><%= currentFile.storedName %></p>
                             </div>
-                            <a href="<%= imageUrl %>" download="<%= currentFile.originalName %>">
+                            <a href="/file/<%= currentFile.id %>/download" download="<%= currentFile.originalName %>">
                                 <button class="file-download-btn">
                                     DOWNLOAD (<%= currentFile.fileSize %> KB)
                                 </button>
