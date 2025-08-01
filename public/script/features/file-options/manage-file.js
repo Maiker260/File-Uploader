@@ -41,7 +41,9 @@ export function manageFile() {
                 const { dialog, closeBtn, cancelBtn, action } =
                     dialogMap[dialogType];
 
-                addItemData(btn, dialog);
+                btn.addEventListener("click", () => {
+                    addItemData(btn, dialog);
+                });
 
                 setupModalDialog(
                     btn,
