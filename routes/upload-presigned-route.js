@@ -4,6 +4,7 @@ import { PutObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import { s3Conn } from "../controllers/middleware/s3-client.js";
+import { getBucketSize } from "../controllers/handlers/get-bucket-size.js";
 
 const generateUploadUrlRouter = express.Router();
 
@@ -17,24 +18,7 @@ generateUploadUrlRouter.post("/", async (req, res) => {
 
     try {
         // 1. Get total bucket size
-        let totalSize = 0;
-        let continuationToken;
-
-        do {
-            const listCommand = new ListObjectsV2Command({
-                Bucket: bucketName,
-                ContinuationToken: continuationToken,
-            });
-            const result = await s3Conn.send(listCommand);
-
-            result.Contents?.forEach((obj) => {
-                totalSize += obj.Size;
-            });
-
-            continuationToken = result.IsTruncated
-                ? result.NextContinuationToken
-                : null;
-        } while (continuationToken);
+        const totalSize = await getBucketSize();
 
         // 2. Check if bucket can fit this new file
         if (totalSize + Number(filesize) > BUCKET_SIZE_LIMIT) {

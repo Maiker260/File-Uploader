@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>File-Uploader</title>
         <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/main-page.css">
+        <link rel="stylesheet" href="/css/index.css">
         <script src="/script/main-page.js" type="module"></script>
     </head>
     <body>
@@ -49,8 +49,8 @@
                             </button>
                         </div>
                             <!-- NEED TO REMOVE THE FLEX CLASS, JUST 1 ITEM -->
-                        <div class="user-data flex">
-                            <p class="user-name" id="userData"><%= user.username  || "" %></p>
+                        <div class="user-data flex" id="userData">
+                            <p class="user-name"><%= user.username  || "" %></p>
                             <!-- NEED TO REMOVE THE DATASET AND PUT IT INTO THE SIDEBAR -->
                             <svg 
                                 class="arrow no-active"
@@ -84,24 +84,38 @@
                         </h3>
                     </div>
                     <div class="folders-section-content content-data folders-section-content-data flex-column">
-                        <%- include('folder', { folder: mainFolder }) %>
+                        <div>
+                            <%- include('folder', { folder: mainFolder }) %>
+                        </div>
+                        <div>
+                            <div>
+                                <strong><%= (remainingSpace / (1024**3)).toFixed(2) %> GB remaining of <%= (maxSize / (1024**3)).toFixed(2) %> GB</strong>
+                            </div>
+                            <div class="progress-container" style="--percent: <%= percentUsed %>%;">
+                                <div class="progress-bar <%= percentUsed > 90 ? 'progress-red' : percentUsed > 70 ? 'progress-yellow' : 'progress-green' %>">
+                                    <%= percentUsed %>%
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <section class="files-section content">
-                    <div class="content-title-container files-section-content flex">
-                        <svg 
-                            class="content-title-icon"
-                            xmlns="http://www.w3.org/2000/svg" 
-                            height="24px" 
-                            viewBox="0 -960 960 960" 
-                            width="24px" 
-                            fill="#e3e3e3"
-                        >
-                            <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
-                        </svg>
-                        <h3 class="content-title">
-                            My Files
-                        </h3>
+                    <div class="content-title-container files-section-content files-section-content-header flex">
+                        <div class="files-section-content-title flex">
+                            <svg 
+                                class="content-title-icon"
+                                xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" 
+                                viewBox="0 -960 960 960" 
+                                width="24px" 
+                                fill="#e3e3e3"
+                            >
+                                <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
+                            </svg>
+                            <h3 class="content-title">
+                                My Files
+                            </h3>
+                        </div>
                     </div>
                     <div class="files-section-content content-data files-section-content-data flex-column">
                         <% if (currentFolder.children.length > 0) { %>

@@ -14,12 +14,34 @@
     gap: 1em;
 }
 
-.image-view {
+.blur-load {
+    position: relative;
+    overflow: hidden;
+}
+
+.blur-load .blur-background {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: 800px;
-    aspect-ratio: 16 / 9;
-    object-fit: contain;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(20px);
+    transform: scale(1.1);
+    z-index: 0;
+}
+
+.blur-load .image-view {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+.blur-load.loaded .image-view {
+    opacity: 1;
 }
 
 .file-download-container {

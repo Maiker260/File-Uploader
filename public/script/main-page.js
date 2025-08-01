@@ -35,7 +35,9 @@ const {
 // NEED TO REPLACE WHEN THE SIDEBAR EXISTS
 // setupToggleSidebar(userData, sidebar, "rotated");
 setupToggleSidebar(arrow, arrow, "rotated");
-showDialogNearTrigger(userData, userDataDialog);
+userData.addEventListener("click", () => {
+    showDialogNearTrigger(userData, userDataDialog);
+});
 
 setupModalDialog(
     uploadFileBtn,

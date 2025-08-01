@@ -1,10 +1,19 @@
 import { checkUserDataOnDB } from "../db/queries/check-user-data.js";
 import { dialogs } from "../shared/navbar-tools.js";
 import { buildFolderTree } from "../shared/build-folder-tree.js";
+import { getBucketSize } from "./get-bucket-size.js";
 
 export function renderIndexWithFolders(getFolderId = () => null) {
     return async function (req, res) {
         const user = req.user;
+
+        const currentBuckerSize = await getBucketSize();
+        const BUCKET_SIZE_LIMIT = Math.floor(4.9 * 1024 * 1024 * 1024);
+        const remainingSpace = BUCKET_SIZE_LIMIT - currentBuckerSize;
+        const percentUsed = (
+            (currentBuckerSize / BUCKET_SIZE_LIMIT) *
+            100
+        ).toFixed(2);
 
         const { folders } = await checkUserDataOnDB(user.id);
         folders.sort((a, b) => a.name.localeCompare(b.name));
@@ -38,6 +47,9 @@ export function renderIndexWithFolders(getFolderId = () => null) {
             dialogs,
             mainFolder: mainFolderWithChildren,
             currentFolder,
+            remainingSpace,
+            maxSize: BUCKET_SIZE_LIMIT,
+            percentUsed,
         });
     };
 }

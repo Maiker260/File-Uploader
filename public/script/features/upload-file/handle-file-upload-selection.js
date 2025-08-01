@@ -42,7 +42,7 @@ export function handleFileUploadSelection() {
                 return;
             }
 
-            showBanner("Uploading...", true);
+            showBanner("Uploading...", true, false);
 
             try {
                 for (const file of selectedFiles) {

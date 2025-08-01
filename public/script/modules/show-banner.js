@@ -1,6 +1,6 @@
 import { getbyId } from "./dom-utils.js";
 
-export function showBanner(messageText, withSpinner = false) {
+export function showBanner(messageText, withSpinner = false, autoHide = true) {
     const banner = getbyId("banner-notification");
     const bannerSpinner = getbyId("banner-spinner");
     const message = getbyId("banner-message");
@@ -15,8 +15,11 @@ export function showBanner(messageText, withSpinner = false) {
     banner.classList.remove("hidden");
     banner.classList.add("show");
 
-    setTimeout(() => {
-        banner.classList.remove("show");
-        banner.classList.add("hidden");
-    }, 3000);
+    // Only auto-hide if requested
+    if (autoHide) {
+        setTimeout(() => {
+            banner.classList.remove("show");
+            banner.classList.add("hidden");
+        }, 3000);
+    }
 }

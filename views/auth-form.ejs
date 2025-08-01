@@ -26,7 +26,8 @@
                         <button type="button" class="form-option <%= mode == "login" ? "" : "form-option-active" %>" id="signUpOption">Sign Up</button>
                     </header>
                     <section class="user-data-container flex-column">
-                        <article class="social-media-login flex-column">
+                        <!-- NEED TO ADD THE GOOGLE AUTHENTICATION LATER -->
+                        <!-- <article class="social-media-login flex-column">
                             <button
                                 type="button"
                                 class="social-media-btn border-round border-line flex"
@@ -62,7 +63,7 @@
                             <hr class="separator-line" />
                             <span class="separator-text">or</span>
                             <hr class="separator-line" />
-                        </article>
+                        </article> -->
                         <article class="regular-form login flex-column <%= mode == 'login' ? '' : 'hidden' %>" id="loginForm">
                             <% loginInputs.forEach(input => { %>
                                 <div class="input-form-container flex-column">
