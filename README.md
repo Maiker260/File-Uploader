@@ -4,6 +4,25 @@
 A web application built with **Express**, **Prisma**, and **Passport.js** that allows authenticated users to upload and manage files and folders, with optional cloud storage integration.
 
 
+## Demo
+
+https://file-uploader-6gao.onrender.com
+
+
+## Screenshots
+
+### Login/SignUp Page
+<img src="./screenshots/Login-SignUp.png" alt="Login/SignUp" width="600"/>
+
+### Home Page
+<img src="./screenshots/Home.png" alt="Home" width="600"/>
+
+### Upload File Form
+<img src="./screenshots/UploadFileForm.png" alt="Upload File Form" width="600"/>
+
+### Create Folder Form
+<img src="./screenshots/CreateFolderForm.png" alt="Create Folder Form" width="600"/>
+
 
 ## Installation
 
@@ -82,24 +101,6 @@ This project fetches data using [S3 Bucket API](https://docs.aws.amazon.com/Amaz
 - Share files to anyone with a direct link.
 - Allows anyone (authenticated or not) to access the shared folder contents temporarily.
 
-## Demo
-
-https://file-uploader-6gao.onrender.com
-
-
-## Screenshots
-
-Login/SignUp Page
-![Login/SignUp Page](./screenshots/Login-SignUp.png)
-
-Home Page
-![Home Page](./screenshots/Home.png)
-
-Upload File Form
-![Upload File Form](./screenshots/UploadFileForm.png)
-
-Create Folder Form
-![Create Folder Form](./screenshots/CreateFolderForm.png)
 
 ## Acknowledgements
 
